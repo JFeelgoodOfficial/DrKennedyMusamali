@@ -572,15 +572,281 @@
   footer .foot-copy { font-size: 0.75rem; color: var(--stone); opacity: 0.6; }
 
   /* ── SCROLL REVEAL ─────────────────────── */
-  .reveal {
+  /* Default: visible. JS adds .js-loaded to body which enables animations */
+  .reveal { opacity: 1; transform: translateY(0); }
+  .js-loaded .reveal {
     opacity: 0; transform: translateY(24px);
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .js-loaded .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
+
+
+  /* ── GRAIN TEXTURE ────────────────────────── */
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 9999;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.028;
+    mix-blend-mode: multiply;
+  }
+
+  /* ── CUSTOM CURSOR ───────────────────────── */
+  /* cursor:none applied via JS so native cursor always works as fallback */
+  .js-cursor #cursor {
+    position: fixed; z-index: 10000; pointer-events: none;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--sage-dark);
+    transform: translate(-50%, -50%);
+    transition: width 0.25s, height 0.25s, background 0.25s, opacity 0.2s;
+    opacity: 0;
+  }
+  .js-cursor #cursor.visible { opacity: 1; }
+  .js-cursor #cursor.hovering {
+    width: 36px; height: 36px;
+    background: rgba(77,122,106,0.18);
+    border: 1px solid var(--sage-dark);
+  }
+  .js-cursor #cursor.clicking { width: 8px; height: 8px; }
+  .js-cursor a, .js-cursor button, .js-cursor .service-card, .js-cursor .kit-panel, .js-cursor .nav-cta { cursor: none; }
+
+  /* ── CLIP-PATH ON MARQUEE ────────────────── */
+  .strip {
+    clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
+    padding-bottom: 2.5rem;
+  }
+
+  /* ── SCROLL INDICATOR IN HERO ────────────── */
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    opacity: 0; animation: fadeHint 1s ease 1.6s forwards;
+  }
+  .scroll-hint-line {
+    width: 1px; height: 36px;
+    background: linear-gradient(to bottom, transparent, var(--sage-dark));
+    animation: scrollPulse 2s ease-in-out 2s infinite;
+  }
+  .scroll-hint-text {
+    font-size: 0.62rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--stone);
+    transform: rotate(90deg); transform-origin: left center;
+    margin-left: 0.25rem;
+  }
+  @keyframes fadeHint { to { opacity: 1; } }
+  @keyframes scrollPulse { 0%,100%{opacity:0.4;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.15)} }
+
+  /* ── SECTION VERTICAL RUNNING HEAD ──────── */
+  .section-run {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 0.6rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--mist);
+    position: absolute; left: 1.75rem; top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+    user-select: none; pointer-events: none;
+  }
+
+  /* ── HERO WATERMARK ──────────────────────── */
+  .hero-watermark {
+    position: absolute; right: 2rem; bottom: -1rem;
+    font-family: var(--font-display); font-size: clamp(120px, 18vw, 200px);
+    font-weight: 300; font-style: italic;
+    color: rgba(77,122,106,0.055);
+    line-height: 1; user-select: none; pointer-events: none;
+    z-index: 1; letter-spacing: -0.04em;
+  }
+
+  /* ── CTA SHIMMER ─────────────────────────── */
+  .btn-cta-primary {
+    position: relative; overflow: hidden;
+  }
+  .btn-cta-primary::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.22) 50%, transparent 70%);
+    transform: translateX(-100%);
+    animation: shimmer 3.5s ease-in-out 2s infinite;
+  }
+  @keyframes shimmer { to { transform: translateX(200%); } }
+
+  /* ── SERVICE CARD GHOST NUMBER ───────────── */
+  .service-num {
+    font-size: clamp(4rem, 7vw, 5.5rem) !important;
+    font-family: var(--font-display) !important;
+    font-weight: 300 !important;
+    color: rgba(168,196,184,0.22) !important;
+    line-height: 1 !important;
+    margin-bottom: 0.25rem !important;
+    letter-spacing: -0.04em;
+  }
+
+  /* ── TESTIMONIAL QUOTE MARK ──────────────── */
+  .testimonial-card { position: relative; overflow: hidden; }
+  .testimonial-card::before {
+    content: '"';
+    position: absolute; top: -0.5rem; left: 1rem;
+    font-family: var(--font-display); font-size: 6rem;
+    font-weight: 300; color: rgba(168,196,184,0.2);
+    line-height: 1; pointer-events: none; user-select: none;
+  }
+
+  /* ── PHOTO WARM TREATMENT ────────────────── */
+  .hero-photo-frame img { filter: saturate(0.92) sepia(0.08) brightness(1.02); }
+  .about-photo-main img { filter: saturate(0.88) sepia(0.06) brightness(1.02); }
+
+  /* ── KIT DYNAMIC SECTION ─────────────────── */
+  .kit-full {
+    padding: 0;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .kit-full-inner {
+    padding: 5rem;
+    position: relative; z-index: 2;
+  }
+  .kit-ghost-word {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display); font-size: 28vw;
+    font-weight: 300; font-style: italic;
+    color: rgba(255,255,255,0.025);
+    pointer-events: none; user-select: none;
+    letter-spacing: -0.06em; line-height: 1;
+    white-space: nowrap; z-index: 1;
+  }
+  .kit-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 2rem;
+  }
+  .kit-header-left .section-label { color: var(--sage-light); }
+  .kit-header-left .section-label::before { background: var(--sage-light); }
+  .kit-header-left h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 3.5vw, 3rem);
+    font-weight: 300; color: white; line-height: 1.15;
+  }
+  .kit-header-left h2 em { font-style: italic; color: var(--sage-light); }
+  .kit-header-right {
+    font-size: 0.78rem; color: rgba(255,255,255,0.35);
+    text-align: right; font-weight: 300; max-width: 200px; line-height: 1.65;
+  }
+  .kit-panels {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1rem; overflow: hidden;
+  }
+  .kit-panel {
+    padding: 2.5rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    position: relative; overflow: hidden;
+    transition: background 0.5s ease, flex 0.5s ease;
+    cursor: none;
+    min-height: 340px;
+    display: flex; flex-direction: column;
+  }
+  .kit-panel:last-child { border-right: none; }
+  .kit-panel::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(77,122,106,0);
+    transition: background 0.5s ease;
+    z-index: 0;
+  }
+  .kit-panel:hover::before, .kit-panel.active::before {
+    background: rgba(77,122,106,0.12);
+  }
+  .kit-panel > * { position: relative; z-index: 1; }
+  .kit-panel-letter {
+    font-family: var(--font-display);
+    font-size: 6rem; font-weight: 300; font-style: italic;
+    line-height: 1; color: rgba(255,255,255,0.15);
+    transition: color 0.4s, transform 0.4s;
+    transform-origin: left center;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  .kit-panel:hover .kit-panel-letter,
+  .kit-panel.active .kit-panel-letter {
+    color: var(--sage-light);
+    transform: scale(1.05) translateX(4px);
+  }
+  .kit-panel-word {
+    font-family: var(--font-display);
+    font-size: 1.35rem; font-weight: 500;
+    color: white; margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
+  }
+  .kit-panel-tagline {
+    font-size: 0.78rem; color: rgba(255,255,255,0.45);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 1.25rem; font-weight: 400;
+  }
+  .kit-panel-divider {
+    width: 24px; height: 1px;
+    background: rgba(168,196,184,0.4);
+    margin-bottom: 1.25rem;
+    transition: width 0.4s ease;
+  }
+  .kit-panel:hover .kit-panel-divider,
+  .kit-panel.active .kit-panel-divider { width: 48px; }
+  .kit-panel-desc {
+    font-size: 0.88rem; color: rgba(255,255,255,0.0);
+    line-height: 1.75; font-weight: 300;
+    max-height: 0; overflow: hidden;
+    transition: color 0.4s 0.1s, max-height 0.5s ease, opacity 0.4s 0.1s;
+    opacity: 0;
+  }
+  .kit-panel:hover .kit-panel-desc,
+  .kit-panel.active .kit-panel-desc {
+    color: rgba(255,255,255,0.62);
+    max-height: 200px; opacity: 1;
+  }
+  .kit-panel-examples {
+    margin-top: auto; padding-top: 1.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.4s 0.2s, transform 0.4s 0.2s;
+  }
+  .kit-panel:hover .kit-panel-examples,
+  .kit-panel.active .kit-panel-examples { opacity: 1; transform: translateY(0); }
+  .kit-example-tag {
+    font-size: 0.65rem; padding: 0.25rem 0.6rem;
+    border-radius: 1rem; border: 1px solid rgba(168,196,184,0.25);
+    color: rgba(168,196,184,0.7); letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .kit-bottom-cta {
+    margin-top: 3rem; padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .kit-bottom-quote {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 1.1rem; color: rgba(255,255,255,0.35);
+    max-width: 480px; line-height: 1.6;
+  }
+  .kit-bottom-quote em { color: rgba(168,196,184,0.7); font-style: normal; }
+
+  @media (max-width: 900px) {
+    .kit-full-inner { padding: 3rem 1.5rem; }
+    .kit-panels { grid-template-columns: 1fr; }
+    .kit-panel { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); min-height: auto; }
+    .kit-panel:last-child { border-bottom: none; }
+    .kit-panel-desc { color: rgba(255,255,255,0.62); max-height: none; opacity: 1; }
+    .kit-panel-examples { opacity: 1; transform: none; }
+    .section-run { display: none; }
+    .scroll-hint { display: none; }
+  }
 
   /* ── RESPONSIVE ────────────────────────── */
   @media (max-width: 900px) {
@@ -601,6 +867,7 @@
 </style>
 </head>
 <body>
+<div id="cursor"></div>
 
 <!-- NAV -->
 <nav id="main-nav">
@@ -667,6 +934,8 @@
       </div>
     </div>
   </div>
+  <div class="hero-watermark">Change</div>
+  <div class="scroll-hint"><div class="scroll-hint-line"></div><span class="scroll-hint-text">Scroll</span></div>
 </section>
 
 <!-- MARQUEE -->
@@ -713,7 +982,8 @@
 </div>
 
 <!-- SERVICES -->
-<section id="services" class="section section-alt">
+<section id="services" class="section section-alt" style="position:relative;">
+  <span class="section-run">Transition Consulting Services</span>
   <div class="section-label reveal">What Dr. Musamali Offers</div>
   <h2 class="section-headline reveal reveal-delay-1">Four pillars of <em>transformative</em> support</h2>
   <p class="section-body reveal reveal-delay-2">Whether you're navigating a personal life change or leading an organization through transformation — there is a service designed precisely for where you are.</p>
@@ -763,63 +1033,88 @@
 </section>
 
 <!-- KIT MODEL -->
-<section class="section section-sage" id="approach">
-  <div class="kit-layout">
-    <div>
-      <div class="section-label reveal">The Framework</div>
-      <h2 class="section-headline reveal reveal-delay-1">The KIT Model<em>©</em></h2>
-      <p class="section-body reveal reveal-delay-2">Kennedy's Integrated Transition Model is a proprietary framework built from decades of research and real-world practice. It's the engine behind every service Dr. Musamali provides.</p>
-      <ul class="kit-steps reveal reveal-delay-3">
-        <li class="kit-step">
-          <div class="kit-step-num">K</div>
-          <div class="kit-step-text"><strong>Knowledge</strong> — Understanding the transition landscape and your unique position within it</div>
-        </li>
-        <li class="kit-step">
-          <div class="kit-step-num">I</div>
-          <div class="kit-step-text"><strong>Integration</strong> — Bringing together emotional, cognitive, and practical dimensions of change</div>
-        </li>
-        <li class="kit-step">
-          <div class="kit-step-num">T</div>
-          <div class="kit-step-text"><strong>Transformation</strong> — Leveraging the transition as a catalyst for growth and lasting positive outcomes</div>
-        </li>
-      </ul>
-      <div style="margin-top:2rem;" class="reveal reveal-delay-4">
-        <a href="#consult" class="btn-secondary">
-          Experience the KIT Model — Book a Free Consultation
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+<section class="kit-full" id="approach">
+  <div class="kit-ghost-word">KIT</div>
+  <div class="kit-full-inner">
+    <div class="kit-header reveal">
+      <div class="kit-header-left">
+        <div class="section-label">The Framework</div>
+        <h2>Kennedy's Integrated<br>Transition <em>Model©</em></h2>
+      </div>
+      <div class="kit-header-right">
+        The proprietary framework behind every service. Hover each pillar to explore what it means in practice.
       </div>
     </div>
-    <div class="kit-visual reveal reveal-delay-2">
-      <div class="kit-line v top"></div>
-      <div class="kit-line v bottom"></div>
-      <div class="kit-line h left"></div>
-      <div class="kit-line h right"></div>
-      <div class="kit-spoke top">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#4D7A6A" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        Clarity
+
+    <div class="kit-panels reveal reveal-delay-1">
+
+      <!-- K -->
+      <div class="kit-panel" tabindex="0" aria-label="Knowledge pillar">
+        <div class="kit-panel-letter">K</div>
+        <div class="kit-panel-word">Knowledge</div>
+        <div class="kit-panel-tagline">Understand your landscape</div>
+        <div class="kit-panel-divider"></div>
+        <div class="kit-panel-desc">
+          Before any transition can be navigated well, it must be understood. This pillar builds a clear map of where you are, what is shifting around you, and what internal and external forces are at play. Knowledge removes the fog that makes change feel so disorienting.
+        </div>
+        <div class="kit-panel-examples">
+          <span class="kit-example-tag">Self-awareness</span>
+          <span class="kit-example-tag">Assessment</span>
+          <span class="kit-example-tag">Context mapping</span>
+          <span class="kit-example-tag">Goal clarity</span>
+        </div>
       </div>
-      <div class="kit-spoke right">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#4D7A6A" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        Purpose
+
+      <!-- I -->
+      <div class="kit-panel" tabindex="0" aria-label="Integration pillar">
+        <div class="kit-panel-letter">I</div>
+        <div class="kit-panel-word">Integration</div>
+        <div class="kit-panel-tagline">Bring the whole self forward</div>
+        <div class="kit-panel-divider"></div>
+        <div class="kit-panel-desc">
+          Change affects us emotionally, cognitively, relationally, and practically — all at once. Integration means weaving these dimensions together rather than addressing them in isolation. It's where coping skills meet strategy, and where insight becomes action.
+        </div>
+        <div class="kit-panel-examples">
+          <span class="kit-example-tag">Emotional resilience</span>
+          <span class="kit-example-tag">Coping skills</span>
+          <span class="kit-example-tag">Strategic planning</span>
+          <span class="kit-example-tag">Adaptability</span>
+        </div>
       </div>
-      <div class="kit-spoke bottom">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#4D7A6A" stroke-width="1.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-        Resilience
+
+      <!-- T -->
+      <div class="kit-panel" tabindex="0" aria-label="Transformation pillar">
+        <div class="kit-panel-letter">T</div>
+        <div class="kit-panel-word">Transformation</div>
+        <div class="kit-panel-tagline">Leverage change for growth</div>
+        <div class="kit-panel-divider"></div>
+        <div class="kit-panel-desc">
+          Every transition, however painful, carries the seeds of growth. Transformation is the deliberate act of leveraging the transition process — not just surviving it, but emerging with new clarity, stronger skills, and deeper purpose. This is where lasting change takes root.
+        </div>
+        <div class="kit-panel-examples">
+          <span class="kit-example-tag">Sustained outcomes</span>
+          <span class="kit-example-tag">Purpose-driven change</span>
+          <span class="kit-example-tag">New identity</span>
+          <span class="kit-example-tag">Growth</span>
+        </div>
       </div>
-      <div class="kit-spoke left">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#4D7A6A" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-        Growth
+
+    </div>
+
+    <div class="kit-bottom-cta reveal reveal-delay-2">
+      <div class="kit-bottom-quote">
+        "I believe every transition is an incubator for <em>transformation and growth</em> — the KIT Model is how we unlock that."
       </div>
-      <div class="kit-center">
-        <div class="kit-center-label">KIT</div>
-        <div class="kit-center-sub">Model©</div>
-      </div>
+      <a href="#consult" class="btn-primary" style="flex-shrink:0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+        Experience it — Free Consultation
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
+
 <section id="about" class="section">
   <div class="about-layout">
     <div class="about-photo reveal">
@@ -989,6 +1284,11 @@
 </footer>
 
 <script>
+// Mark JS as loaded — enables animations and custom cursor
+document.body.classList.add('js-loaded');
+document.body.classList.add('js-cursor');
+document.body.style.cursor = 'none';
+
 // Nav scroll behavior
 const nav = document.getElementById('main-nav');
 window.addEventListener('scroll', () => {
@@ -1010,7 +1310,42 @@ reveals.forEach(el => observer.observe(el));
 document.querySelectorAll('.hero .reveal').forEach(el => {
   setTimeout(() => el.classList.add('visible'), 100);
 });
-</script>
 
+// Custom cursor
+const cursor = document.getElementById('cursor');
+let mx = -100, my = -100, cx = -100, cy = -100;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.classList.add('visible'); });
+document.addEventListener('mouseleave', () => cursor.classList.remove('visible'));
+document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+const hoverEls = document.querySelectorAll('a, button, .service-card, .kit-panel');
+hoverEls.forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+});
+function animateCursor() {
+  cx += (mx - cx) * 0.18;
+  cy += (my - cy) * 0.18;
+  cursor.style.left = cx + 'px';
+  cursor.style.top = cy + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// KIT panel keyboard/click support
+document.querySelectorAll('.kit-panel').forEach(panel => {
+  panel.addEventListener('focus', () => panel.classList.add('active'));
+  panel.addEventListener('blur', () => panel.classList.remove('active'));
+});
+
+// Hero photo parallax on scroll
+const heroPhoto = document.querySelector('.hero-photo-frame img');
+if (heroPhoto) {
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    heroPhoto.style.transform = 'translateY(' + (y * 0.12) + 'px) scale(1.03)';
+  }, { passive: true });
+}
+</script>
 </body>
 </html>
