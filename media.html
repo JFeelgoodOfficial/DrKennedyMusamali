@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media & Conversations – Dr. Kennedy Musamali</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    *,::before,::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --cream:#F9F6F0;--cream-dark:#EFE9DF;--sage:#7A9E8E;--sage-light:#A8C4B8;--sage-dark:#4D7A6A;
+      --earth:#8B6F5C;--stone:#6B6259;--ink:#2A2420;--ink-soft:#4A433E;--mist:#B8C9C2;
+      --warm-white:#FDFAF5;--gold:#C9A96E;--gold-light:#E8D5B0;
+      --font-display:'Cormorant Garamond',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif;
+      --transition:0.4s cubic-bezier(0.25,0.46,0.45,0.94)
+    }
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--font-body);
+      background:var(--warm-white);
+      color:var(--ink);
+      line-height:1.6;
+      overflow-x:hidden
+    }
+    /* Grain overlay */
+    body::after{
+      content:'';
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.1'/%3E%3C/svg%3E");
+      opacity:.028;
+      mix-blend-mode:multiply
+    }
+
+    /* NAV */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:1.25rem 3rem;
+      background:rgba(253,250,245,0.88);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(122,158,142,0.15);
+      transition:var(--transition)
+    }
+    nav.scrolled{padding:1rem 3rem}
+    .nav-logo{
+      font-family:var(--font-display);
+      font-size:1.15rem;
+      font-weight:500;
+      color:var(--ink);
+      letter-spacing:0.02em;
+      text-decoration:none
+    }
+    .nav-logo span{color:var(--sage-dark)}
+    .nav-links{display:flex;align-items:center;gap:2.5rem}
+    .nav-links a{
+      font-size:.82rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--stone);
+      text-decoration:none;
+      transition:color .25s
+    }
+    .nav-links a:hover{color:var(--sage-dark)}
+    .nav-cta{
+      font-size:.78rem!important;
+      letter-spacing:.1em!important;
+      background:var(--sage-dark)!important;
+      color:#fff!important;
+      padding:.6rem 1.4rem!important;
+      border-radius:2rem;
+      text-decoration:none;
+      transition:background .25s,transform .2s!important
+    }
+    .nav-cta:hover{
+      background:var(--sage)!important;
+      transform:translateY(-1px)!important
+    }
+
+    /* HERO MEDIA */
+    .hero{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:1.1fr 1fr;
+      padding-top:5rem;
+      position:relative;
+      overflow:hidden
+    }
+    .hero-bg-circle{
+      position:absolute;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(168,196,184,0.18) 0%,transparent 70%);
+      pointer-events:none;
+      width:640px;height:640px;
+      top:-220px;left:-140px
+    }
+    .hero-left{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:5rem 4rem 5rem 5rem;
+      position:relative;
+      z-index:2
+    }
+    .hero-eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.72rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--sage-dark);
+      font-weight:500;
+      margin-bottom:1.5rem
+    }
+    .hero-eyebrow::before{
+      content:'';
+      width:28px;height:1px;
+      background:var(--sage-dark)
+    }
+    .hero-headline{
+      font-family:var(--font-display);
+      font-size:clamp(2.6rem,4.3vw,4rem);
+      font-weight:300;
+      line-height:1.15;
+      color:var(--ink);
+      letter-spacing:-0.01em;
+      margin-bottom:1.5rem
+    }
+    .hero-headline em{font-style:italic;color:var(--sage-dark)}
+    .hero-sub{
+      font-size:1rem;
+      color:var(--stone);
+      line-height:1.75;
+      max-width:460px;
+      margin-bottom:2.5rem;
+      font-weight:300
+    }
+    .hero-actions{
+      display:flex;
+      align-items:center;
+      gap:1.25rem;
+      flex-wrap:wrap
+    }
+    .btn-primary{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:var(--ink);
+      color:#fff;
+      padding:.9rem 2rem;
+      border-radius:2rem;
+      font-size:.82rem;
+      font-weight:500;
+      letter-spacing:.05em;
+      text-decoration:none;
+      text-transform:uppercase;
+      transition:background var(--transition),transform .2s
+    }
+    .btn-primary svg{width:14px;height:14px}
+    .btn-primary:hover{background:var(--ink-soft);transform:translateY(-2px)}
+    .btn-secondary{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      color:var(--sage-dark);
+      font-size:.82rem;
+      font-weight:500;
+      letter-spacing:.04em;
+      text-decoration:none;
+      border-bottom:1px solid var(--sage-light);
+      padding-bottom:.1rem;
+      text-transform:uppercase;
+      transition:color .25s,border-color .25s
+    }
+    .btn-secondary svg{width:12px;height:12px}
+    .btn-secondary:hover{color:var(--sage);border-color:var(--sage)}
+
+    .hero-badge{
+      display:flex;
+      flex-wrap:wrap;
+      gap:1.5rem;
+      margin-top:3rem;
+      padding-top:2rem;
+      border-top:1px solid var(--cream-dark)
+    }
+    .hero-badge-item{
+      display:flex;
+      flex-direction:column;
+      padding-right:1.5rem;
+      border-right:1px solid var(--cream-dark)
+    }
+    .hero-badge-item:last-child{border-right:none;padding-right:0}
+    .hero-badge-num{
+      font-family:var(--font-display);
+      font-size:1.6rem;
+      font-weight:500;
+      color:var(--ink);
+      line-height:1
+    }
+    .hero-badge-label{
+      font-size:.7rem;
+      color:var(--stone);
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      margin-top:.2rem
+    }
+
+    .hero-right{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:4rem 4rem 4rem 2rem
+    }
+    .media-card{
+      width:100%;
+      max-width:460px;
+      background:var(--cream);
+      border-radius:1.75rem;
+      border:1px solid var(--gold-light);
+      box-shadow:0 18px 55px rgba(42,36,32,0.12);
+      overflow:hidden;
+      position:relative
+    }
+    .media-thumb{
+      position:relative;
+      background:var(--ink);
+      aspect-ratio:16/9;
+      overflow:hidden
+    }
+    .media-thumb iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block
+    }
+    .media-tag{
+      position:absolute;
+      top:1rem;left:1rem;
+      background:rgba(0,0,0,0.6);
+      color:#fff;
+      font-size:.68rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      padding:.3rem .7rem;
+      border-radius:999px
+    }
+    .media-body{
+      padding:1.6rem 1.8rem 1.8rem
+    }
+    .media-title{
+      font-family:var(--font-display);
+      font-size:1.4rem;
+      font-weight:500;
+      color:var(--ink);
+      margin-bottom:.6rem
+    }
+    .media-meta{
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--stone);
+      margin-bottom:1rem
+    }
+    .media-desc{
+      font-size:.9rem;
+      color:var(--stone);
+      line-height:1.7;
+      margin-bottom:1.25rem
+    }
+    .media-link{
+      font-size:.8rem;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--sage-dark);
+      text-decoration:none;
+      border-bottom:1px solid var(--sage-light);
+      padding-bottom:.08rem
+    }
+    .media-link:hover{color:var(--sage);border-color:var(--sage)}
+
+    .hero-watermark{
+      position:absolute;
+      right:2rem;
+      bottom:-1rem;
+      font-family:var(--font-display);
+      font-size:clamp(120px,18vw,200px);
+      font-weight:300;
+      font-style:italic;
+      color:rgba(77,122,106,0.055);
+      letter-spacing:-0.04em;
+      user-select:none;
+      pointer-events:none;
+      z-index:1
+    }
+
+    /* STRIP */
+    .strip{
+      background:var(--ink);
+      padding:.9rem 0;
+      overflow:hidden;
+      white-space:nowrap;
+      clip-path:polygon(0 0,100% 0,100% 82%,0 100%);
+      padding-bottom:2.5rem
+    }
+    .strip-inner{
+      display:inline-flex;
+      gap:3rem;
+      animation:marquee 22s linear infinite
+    }
+    .strip-inner span{
+      font-family:var(--font-display);
+      font-size:.95rem;
+      font-style:italic;
+      color:rgba(255,255,255,0.55);
+      letter-spacing:.02em;
+      flex-shrink:0
+    }
+    .strip-inner span.accent{color:var(--gold)}
+    @keyframes marquee{
+      from{transform:translateX(0)}
+      to{transform:translateX(-50%)}
+    }
+
+    /* SECTION */
+    .section{padding:6rem 5rem}
+    .section-alt{background:var(--cream)}
+    .section-label{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.7rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--sage-dark);
+      font-weight:500;
+      margin-bottom:1.25rem
+    }
+    .section-label::before{
+      content:'';
+      width:20px;height:1px;
+      background:var(--sage-dark)
+    }
+    .section-headline{
+      font-family:var(--font-display);
+      font-size:clamp(2rem,3.3vw,2.8rem);
+      font-weight:300;
+      line-height:1.2;
+      color:var(--ink)
+    }
+    .section-headline em{font-style:italic;color:var(--sage-dark)}
+    .section-body{
+      font-size:1rem;
+      color:var(--stone);
+      line-height:1.8;
+      font-weight:300;
+      max-width:540px;
+      margin-top:1rem
+    }
+
+    .media-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.5rem;
+      margin-top:3.5rem
+    }
+    .media-pill{
+      background:var(--warm-white);
+      border-radius:1.25rem;
+      border:1px solid var(--cream-dark);
+      padding:1.5rem 1.4rem;
+      display:flex;
+      flex-direction:column;
+      gap:.7rem;
+      transition:transform var(--transition),box-shadow var(--transition);
+      cursor:default
+    }
+    .media-pill:hover{
+      transform:translateY(-6px);
+      box-shadow:0 16px 48px rgba(77,122,106,0.12)
+    }
+    .media-pill-label{
+      font-size:.72rem;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--sage-dark)
+    }
+    .media-pill-title{
+      font-family:var(--font-display);
+      font-size:1.25rem;
+      color:var(--ink);
+      font-weight:500
+    }
+    .media-pill-text{
+      font-size:.86rem;
+      color:var(--stone);
+      line-height:1.7;
+      font-weight:300
+    }
+
+    /* CTA FOOTER STYLE */
+    .cta-section{
+      background:var(--ink);
+      padding:5.5rem 5rem 4.5rem;
+      text-align:center;
+      position:relative;
+      overflow:hidden
+    }
+    .cta-bg{
+      position:absolute;
+      top:-120px;left:50%;
+      transform:translateX(-50%);
+      width:600px;height:600px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(77,122,106,0.15) 0%,transparent 70%);
+      pointer-events:none
+    }
+    .cta-label{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.7rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--sage-light);
+      font-weight:500;
+      margin-bottom:1.5rem;
+      position:relative;
+      z-index:1
+    }
+    .cta-label::before,
+    .cta-label::after{
+      content:'';
+      width:20px;height:1px;
+      background:var(--sage-light)
+    }
+    .cta-headline{
+      font-family:var(--font-display);
+      font-size:clamp(2.4rem,3.6vw,3.2rem);
+      font-weight:300;
+      color:#fff;
+      line-height:1.2;
+      max-width:640px;
+      margin:0 auto 1.5rem;
+      position:relative;
+      z-index:1
+    }
+    .cta-headline em{font-style:italic;color:var(--sage-light)}
+    .cta-sub{
+      font-size:.95rem;
+      color:rgba(255,255,255,0.55);
+      font-weight:300;
+      max-width:440px;
+      margin:0 auto 2.5rem;
+      line-height:1.75;
+      position:relative;
+      z-index:1
+    }
+    .cta-actions{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:1.5rem;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:1
+    }
+    .btn-cta-primary{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:#fff;
+      color:var(--ink);
+      padding:1rem 2.25rem;
+      border-radius:2rem;
+      font-size:.85rem;
+      font-weight:500;
+      letter-spacing:.04em;
+      text-decoration:none;
+      text-transform:uppercase;
+      position:relative;
+      overflow:hidden;
+      transition:background .25s,transform .2s
+    }
+    .btn-cta-primary::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,0.22) 50%,transparent 70%);
+      transform:translateX(-100%);
+      animation:shimmer 3.5s ease-in-out 2s infinite
+    }
+    .btn-cta-primary:hover{background:var(--cream);transform:translateY(-2px)}
+    .btn-cta-secondary{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      color:rgba(255,255,255,0.6);
+      font-size:.85rem;
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,0.25);
+      padding-bottom:.1rem;
+      text-transform:uppercase;
+      transition:color .25s
+    }
+    .btn-cta-secondary:hover{color:#fff}
+    .btn-cta-secondary svg{width:14px;height:14px}
+    @keyframes shimmer{to{transform:translateX(200%)}}
+
+    footer{
+      background:var(--cream);
+      padding:3rem 5rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-top:1px solid var(--cream-dark);
+      flex-wrap:wrap;
+      gap:1rem
+    }
+    .foot-logo{
+      font-family:var(--font-display);
+      font-size:1rem;
+      font-weight:500;
+      color:var(--ink)
+    }
+    .foot-logo span{color:var(--sage-dark)}
+    .foot-links{display:flex;gap:2rem}
+    .foot-links a{
+      font-size:.78rem;
+      color:var(--stone);
+      text-decoration:none;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      transition:color .2s
+    }
+    .foot-links a:hover{color:var(--sage-dark)}
+    .foot-copy{
+      font-size:.75rem;
+      color:var(--stone);
+      opacity:.6
+    }
+
+    /* Scroll reveal light version */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .reveal.delay-1{transition-delay:.1s}
+    .reveal.delay-2{transition-delay:.2s}
+    .reveal.delay-3{transition-delay:.3s}
+    .reveal.delay-4{transition-delay:.4s}
+
+    /* Responsive */
+    @media (max-width:900px){
+      nav{padding:1rem 1.5rem}
+      .nav-links{display:none}
+      .hero{
+        grid-template-columns:1fr;
+        min-height:auto
+      }
+      .hero-left{padding:6rem 2rem 3rem}
+      .hero-right{
+        padding:0 2rem 3.5rem;
+        order:-1
+      }
+      .hero-watermark{display:none}
+      .section{padding:4rem 2rem}
+      .media-grid{grid-template-columns:1fr}
+      .cta-section{padding:4.5rem 2rem}
+      footer{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:2rem
+      }
+    }
+    @media (max-width:600px){
+      .media-card{border-radius:1.25rem}
+      .media-body{padding:1.4rem 1.4rem 1.6rem}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="index.html" class="nav-logo">Dr. Kennedy <span>Musamali</span></a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#approach">Approach</a>
+      <a href="index.html#contact" class="nav-cta">Free Consultation</a>
+    </div>
+  </nav>
+
+  <!-- HERO MEDIA -->
+  <section class="hero">
+    <div class="hero-bg-circle"></div>
+
+    <div class="hero-left">
+      <div class="hero-eyebrow reveal">Media & Conversations</div>
+      <h1 class="hero-headline reveal delay-1">
+        Turning lived transitions into<br />
+        <em>practical, shareable wisdom.</em>
+      </h1>
+      <p class="hero-sub reveal delay-2">
+        This media space gathers key talks, interviews, and reflections that grow out of Dr. Musamali’s writing and consulting work. Use it as a quiet room to pause, listen, and re‑enter your own transition with a bit more language and calm.
+      </p>
+      <div class="hero-actions reveal delay-3">
+        <a href="#featured-video" class="btn-primary">
+          <span>Watch the Featured Video</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a href="#media-notes" class="btn-secondary">
+          <span>Browse media notes</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="hero-badge reveal delay-4">
+        <div class="hero-badge-item">
+          <div class="hero-badge-num">EdD</div>
+          <div class="hero-badge-label">Doctorate</div>
+        </div>
+        <div class="hero-badge-item">
+          <div class="hero-badge-num">4</div>
+          <div class="hero-badge-label">Core Themes</div>
+        </div>
+        <div class="hero-badge-item">
+          <div class="hero-badge-num">KIT</div>
+          <div class="hero-badge-label">Transition Model</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right" id="featured-video">
+      <div class="media-card reveal delay-2">
+        <div class="media-thumb">
+          <div class="media-tag">Featured Talk</div>
+          <!-- Replace src with your YouTube/Vimeo embed URL -->
+          <iframe
+            src="media/lifekit001"
+            title="Featured media conversation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="media-body">
+          <div class="media-title">When Change Won’t Sit Still</div>
+          <div class="media-meta">CONVERSATION • 32 MINUTES</div>
+          <p class="media-desc">
+            In this conversation, Dr. Musamali walks through a real transition story using the KIT model. You’ll hear how language, ritual, and honest expectations can turn a disruptive season into a more deliberate passage.
+          </p>
+          <a href="#media-notes" class="media-link">Read the key takeaways</a>
+        </div>
+      </div>
+      <div class="hero-watermark">Media</div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <section class="strip">
+    <div class="strip-inner">
+      <span>Stories that begin in uncertainty can end in clarity.</span>
+      <span class="accent">“Every transition is an incubator for growth.”</span>
+      <span>Short-form media drawn from live consulting, writing, and field notes.</span>
+      <span class="accent">Pause. Listen. Name what is changing.</span>
+      <span>Stories that begin in uncertainty can end in clarity.</span>
+      <span class="accent">“Every transition is an incubator for growth.”</span>
+    </div>
+  </section>
+
+  <!-- MEDIA NOTES -->
+  <section class="section section-alt" id="media-notes">
+    <div class="section-label">Media notes & mini-essays</div>
+    <h2 class="section-headline">
+      Brief reflections that sit<br />
+      alongside the <em>longer blog work.</em>
+    </h2>
+    <p class="section-body">
+      Some ideas prefer to arrive as a page-long essay. Others are more at home in a single story, a brief audio clip, or a short conversation like the one above. This page collects those smaller pieces and ties them back to the broader themes in Dr. Musamali’s writing.
+    </p>
+
+    <div class="media-grid">
+      <article class="media-pill reveal delay-1">
+        <div class="media-pill-label">From the KIT model</div>
+        <h3 class="media-pill-title">Naming the Actual Threshold</h3>
+        <p class="media-pill-text">
+          Every transition asks a version of the same question: what exactly are you crossing from, and into? This note offers a simple language exercise you can do after the video to name your own threshold more honestly.
+        </p>
+      </article>
+
+      <article class="media-pill reveal delay-2">
+        <div class="media-pill-label">For couples & families</div>
+        <h3 class="media-pill-title">When One Person is Ready First</h3>
+        <p class="media-pill-text">
+          In many transitions, one person has language long before the others. This short reflection introduces ways to talk about “different speeds” of change without blame, and to build a shared pace over time.
+        </p>
+      </article>
+
+      <article class="media-pill reveal delay-3">
+        <div class="media-pill-label">Organizational change</div>
+        <h3 class="media-pill-title">Announcements vs. Accompaniment</h3>
+        <p class="media-pill-text">
+          Organizations are good at announcing change and less practiced at accompanying people through it. This note points to a few small, human gestures you can add around any big announcement to help it land.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="media-contact">
+    <div class="cta-bg"></div>
+    <div class="cta-label">
+      <span></span>
+      <span>Bring this work to your context</span>
+      <span></span>
+    </div>
+    <h2 class="cta-headline">
+      Share this media with your team,<br />
+      or invite Dr. Musamali to speak into your <em>next transition.</em>
+    </h2>
+    <p class="cta-sub">
+      Use the conversation above as a starting point with your group, then reach out if you’d like a more tailored session, workshop, or facilitated dialogue around the transitions you’re actually living.
+    </p>
+    <div class="cta-actions">
+      <a href="mailto:info@example.com?subject=Media%20Inquiry%20with%20Dr.%20Musamali" class="btn-cta-primary">
+        <span>Inquire about a session</span>
+      </a>
+      <a href="index.html#contact" class="btn-cta-secondary">
+        <span>Return to the main contact form</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-logo">Dr. Kennedy <span>Musamali</span></div>
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#services">Services</a>
+      <a href="#featured-video">Media</a>
+    </div>
+    <div class="foot-copy">
+      &copy; <span id="year"></span> Dr. Kennedy Musamali. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Nav shrink on scroll
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+
+    // Simple reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const onScroll = () => {
+      const trigger = window.innerHeight * 0.88;
+      reveals.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < trigger) el.classList.add('visible');
+      });
+    };
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('load', () => {
+      onScroll();
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
