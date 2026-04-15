@@ -849,30 +849,8 @@
     </div>
   </footer>
 
+  
   <script>
-    // Nav shrink on scroll
-    const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
-
-    // Simple reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const onScroll = () => {
-      const trigger = window.innerHeight * 0.88;
-      reveals.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < trigger) el.classList.add('visible');
-      });
-    };
-    window.addEventListener('scroll', onScroll);
-    window.addEventListener('load', () => {
-      onScroll();
-      document.getElementById('year').textContent = new Date().getFullYear();
-    });
-
-      
     // Nav shrink on scroll
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
@@ -1009,7 +987,6 @@
         document.getElementById('year').textContent = new Date().getFullYear();
       });
     }
-  
   </script>
 </body>
 </html>
