@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Media & Conversations – Dr. Kennedy Musamali</title>
+  <title>Media – The Real Reason Change Fails</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -140,10 +140,11 @@
       font-size:1rem;
       color:var(--stone);
       line-height:1.75;
-      max-width:460px;
+      max-width:480px;
       margin-bottom:2.5rem;
       font-weight:300
     }
+    .hero-sub strong{font-weight:500;color:var(--ink)}
     .hero-actions{
       display:flex;
       align-items:center;
@@ -254,6 +255,19 @@
       padding:.3rem .7rem;
       border-radius:999px
     }
+    .media-quote{
+      position:absolute;
+      bottom:1rem;right:1rem;
+      background:rgba(0,0,0,0.65);
+      color:#fff;
+      font-family:var(--font-display);
+      font-size:.9rem;
+      font-style:italic;
+      padding:.4rem .7rem;
+      border-radius:.6rem;
+      max-width:60%;
+      line-height:1.4
+    }
     .media-body{
       padding:1.6rem 1.8rem 1.8rem
     }
@@ -363,9 +377,10 @@
       color:var(--stone);
       line-height:1.8;
       font-weight:300;
-      max-width:540px;
+      max-width:640px;
       margin-top:1rem
     }
+    .section-body strong{font-weight:500;color:var(--ink)}
 
     .media-grid{
       display:grid;
@@ -407,7 +422,7 @@
       font-weight:300
     }
 
-    /* CTA FOOTER STYLE */
+    /* CTA */
     .cta-section{
       background:var(--ink);
       padding:5.5rem 5rem 4.5rem;
@@ -459,12 +474,13 @@
       font-size:.95rem;
       color:rgba(255,255,255,0.55);
       font-weight:300;
-      max-width:440px;
+      max-width:540px;
       margin:0 auto 2.5rem;
       line-height:1.75;
       position:relative;
       z-index:1
     }
+    .cta-sub strong{font-weight:500;color:#fff}
     .cta-actions{
       display:flex;
       align-items:center;
@@ -549,7 +565,7 @@
       opacity:.6
     }
 
-    /* Scroll reveal light version */
+    /* Scroll reveal */
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
     .reveal.visible{opacity:1;transform:translateY(0)}
     .reveal.delay-1{transition-delay:.1s}
@@ -604,23 +620,23 @@
     <div class="hero-bg-circle"></div>
 
     <div class="hero-left">
-      <div class="hero-eyebrow reveal">Media & Conversations</div>
+      <div class="hero-eyebrow reveal">Media • Based on a recent article</div>
       <h1 class="hero-headline reveal delay-1">
-        Turning lived transitions into<br />
-        <em>practical, shareable wisdom.</em>
+        The real reason organizational change<br />
+        so often <em>fails.</em>
       </h1>
       <p class="hero-sub reveal delay-2">
-        This media space gathers key talks, interviews, and reflections that grow out of Dr. Musamali’s writing and consulting work. Use it as a quiet room to pause, listen, and re‑enter your own transition with a bit more language and calm.
+        This short talk grows out of Dr. Musamali’s article <strong>“The Real Reason Change Fails.”</strong> It explores why most change efforts don’t collapse because the strategy is wrong, but because the <strong>internal transition</strong> is unmanaged — people are asked to move on before they have deconstructed what came before, named their losses, or felt safe enough to learn again.
       </p>
       <div class="hero-actions reveal delay-3">
         <a href="#featured-video" class="btn-primary">
-          <span>Watch the Featured Video</span>
+          <span>Watch: The Real Reason Change Fails</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </a>
         <a href="#media-notes" class="btn-secondary">
-          <span>Browse media notes</span>
+          <span>Skim the core ideas</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M5 12h14" />
           </svg>
@@ -633,12 +649,12 @@
           <div class="hero-badge-label">Doctorate</div>
         </div>
         <div class="hero-badge-item">
-          <div class="hero-badge-num">4</div>
-          <div class="hero-badge-label">Core Themes</div>
+          <div class="hero-badge-num">LPC‑S</div>
+          <div class="hero-badge-label">Licensed Supervisor</div>
         </div>
         <div class="hero-badge-item">
           <div class="hero-badge-num">KIT</div>
-          <div class="hero-badge-label">Transition Model</div>
+          <div class="hero-badge-label">Proprietary Model©</div>
         </div>
       </div>
     </div>
@@ -646,22 +662,25 @@
     <div class="hero-right" id="featured-video">
       <div class="media-card reveal delay-2">
         <div class="media-thumb">
-          <div class="media-tag">Featured Talk</div>
-          <!-- Replace src with your YouTube/Vimeo embed URL -->
+          <div class="media-tag">Featured Video</div>
+          <div class="media-quote">
+            “Transformation is a process, not an event.” — John P. Kotter
+          </div>
+          <!-- Replace src with your actual embed URL -->
           <iframe
-            src="media/lifekit001"
-            title="Featured media conversation"
+            src="https://notebooklm.google.com/notebook/5fc5c4e7-db34-4fe0-a471-564f9ee0a4ba?artifactId=8a99f197-5bc1-40c1-8c24-e741379d5a2d"
+            title="The Real Reason Change Fails – Kennedy Musamali"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
           ></iframe>
         </div>
         <div class="media-body">
-          <div class="media-title">When Change Won’t Sit Still</div>
-          <div class="media-meta">CONVERSATION • 32 MINUTES</div>
+          <div class="media-title">The Real Reason Change Fails</div>
+          <div class="media-meta">CHANGE & TRANSITION • ~ 5 MINUTES</div>
           <p class="media-desc">
-            In this conversation, Dr. Musamali walks through a real transition story using the KIT model. You’ll hear how language, ritual, and honest expectations can turn a disruptive season into a more deliberate passage.
+            In this teaching, Dr. Musamali explains why change efforts rarely fail for technical reasons alone. Drawing on his work as a clinician, consultant, and transition strategist, he shows how unmanaged transition — the slow, psychological process underneath the fast, situational change — quietly undermines even well‑designed initiatives.
           </p>
-          <a href="#media-notes" class="media-link">Read the key takeaways</a>
+          <a href="#media-notes" class="media-link">Read the outline from the article</a>
         </div>
       </div>
       <div class="hero-watermark">Media</div>
@@ -671,48 +690,86 @@
   <!-- STRIP -->
   <section class="strip">
     <div class="strip-inner">
-      <span>Stories that begin in uncertainty can end in clarity.</span>
-      <span class="accent">“Every transition is an incubator for growth.”</span>
-      <span>Short-form media drawn from live consulting, writing, and field notes.</span>
-      <span class="accent">Pause. Listen. Name what is changing.</span>
-      <span>Stories that begin in uncertainty can end in clarity.</span>
-      <span class="accent">“Every transition is an incubator for growth.”</span>
+      <span>“People don’t resist change. They resist being changed.” — Peter Senge</span>
+      <span class="accent">Change fails for human reasons, not technical ones.</span>
+      <span>Change is situational and fast. Transition is psychological and slow.</span>
+      <span class="accent">Transitions are incubators of transformation.</span>
+      <span>Organizations demand adaptation; people need support with transition.</span>
+      <span class="accent">Slowing down transitions is the fastest way to real change.</span>
     </div>
   </section>
 
-  <!-- MEDIA NOTES -->
+  <!-- MEDIA NOTES: ARTICLE HOOKS -->
   <section class="section section-alt" id="media-notes">
-    <div class="section-label">Media notes & mini-essays</div>
+    <div class="section-label">From the article “The Real Reason Change Fails”</div>
     <h2 class="section-headline">
-      Brief reflections that sit<br />
-      alongside the <em>longer blog work.</em>
+      Why most change efforts stall<br />
+      long before the new plan is <em>implemented.</em>
     </h2>
     <p class="section-body">
-      Some ideas prefer to arrive as a page-long essay. Others are more at home in a single story, a brief audio clip, or a short conversation like the one above. This page collects those smaller pieces and ties them back to the broader themes in Dr. Musamali’s writing.
+      Research on major change efforts suggests that only a minority fully succeed, not because the strategy or technology is flawed, but because the <strong>internal transition is left unmanaged.</strong> Change is installing a new system or structure; transition is the slower work of letting go, grieving what worked, feeling incompetent again, and building a new sense of competence and belonging.
     </p>
 
     <div class="media-grid">
       <article class="media-pill reveal delay-1">
-        <div class="media-pill-label">From the KIT model</div>
-        <h3 class="media-pill-title">Naming the Actual Threshold</h3>
+        <div class="media-pill-label">Where change actually fails</div>
+        <h3 class="media-pill-title">Mistaking change for transition</h3>
         <p class="media-pill-text">
-          Every transition asks a version of the same question: what exactly are you crossing from, and into? This note offers a simple language exercise you can do after the video to name your own threshold more honestly.
+          Change is situational and fast; transition is psychological and slow. Many organizations celebrate the “go‑live” moment and then act surprised when burnout, confusion, and quiet resistance surface months later. The failure is not in the rollout itself, but in skipping the work of helping people mourn the old way, name what feels lost, and rebuild confidence in the new one.
         </p>
       </article>
 
       <article class="media-pill reveal delay-2">
-        <div class="media-pill-label">For couples & families</div>
-        <h3 class="media-pill-title">When One Person is Ready First</h3>
+        <div class="media-pill-label">Human cost of unmanaged change</div>
+        <h3 class="media-pill-title">Demanding adaptation without support</h3>
         <p class="media-pill-text">
-          In many transitions, one person has language long before the others. This short reflection introduces ways to talk about “different speeds” of change without blame, and to build a shared pace over time.
+          When leaders insist on agility but offer no time to learn, no permission to struggle, and no grace for mistakes, people experience abandonment rather than leadership. They may comply publicly while quietly disengaging, checking boxes without changing how they actually work or think about the organization’s future.
         </p>
       </article>
 
       <article class="media-pill reveal delay-3">
-        <div class="media-pill-label">Organizational change</div>
-        <h3 class="media-pill-title">Announcements vs. Accompaniment</h3>
+        <div class="media-pill-label">What must be embraced</div>
+        <h3 class="media-pill-title">Treating transitions as incubators</h3>
         <p class="media-pill-text">
-          Organizations are good at announcing change and less practiced at accompanying people through it. This note points to a few small, human gestures you can add around any big announcement to help it land.
+          Transitions are incubators of transformation, not obstacles to be rushed through. When organizations slow down enough to acknowledge loss, map the learning curve, and provide psychological scaffolding — the safety to say, “I do not know how to do this yet” — they accelerate real, lasting change instead of spinning through exhausting cycles of half‑implemented initiatives.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CREDIBILITY / BIO SNAPSHOT -->
+  <section class="section">
+    <div class="section-label">Why listen to this voice</div>
+    <h2 class="section-headline">
+      A practitioner‑scholar at the<br />
+      intersection of psychology and <em>organizational life.</em>
+    </h2>
+    <p class="section-body">
+      Dr. Kennedy Musamali is an Ed.D.‑trained Licensed Professional Counselor‑Supervisor (LPC‑S) based in Irving, Texas, and the founder of Transition Consulting Services.[web:10][web:14][web:20] He created the proprietary KIT Model©, an integrated framework that brings evidence‑based counseling insights into organizational change work so that the human experience of transition is not treated as an afterthought.
+    </p>
+
+    <div class="media-grid">
+      <article class="media-pill reveal delay-1">
+        <div class="media-pill-label">Academic & research depth</div>
+        <h3 class="media-pill-title">Doctoral‑level scholarship</h3>
+        <p class="media-pill-text">
+          With an Ed.D. and peer‑reviewed research on transition models, including an integrated approach to change and transition, he operates well beyond generic “best practices.” His work translates the literature on transition into language and tools that real people, teams, and institutions can actually use when the stakes are high and timelines are tight.
+        </p>
+      </article>
+
+      <article class="media-pill reveal delay-2">
+        <div class="media-pill-label">Licensed clinical expertise</div>
+        <h3 class="media-pill-title">LPC‑S: counselor & supervisor</h3>
+        <p class="media-pill-text">
+          As an LPC‑S, he not only provides clinical care but also supervises counselors on their way to licensure, which signals both depth of training and trust from the profession. That same attentiveness to the inner life shows up when he works with leaders, teams, and organizations in the throes of disruptive change.
+        </p>
+      </article>
+
+      <article class="media-pill reveal delay-3">
+        <div class="media-pill-label">Field‑tested practice</div>
+        <h3 class="media-pill-title">From individuals to institutions</h3>
+        <p class="media-pill-text">
+          Dr. Musamali has directed transition programs for federally funded projects, supported universities building first‑generation student initiatives, and trained professionals at regional and national conferences.[web:14] The KIT Model© was forged in that mix of counseling, consulting, and research, giving leaders a practical way to hold both the technical and human sides of change at once.
         </p>
       </article>
     </div>
@@ -723,22 +780,22 @@
     <div class="cta-bg"></div>
     <div class="cta-label">
       <span></span>
-      <span>Bring this work to your context</span>
+      <span>The Power of Transition</span>
       <span></span>
     </div>
     <h2 class="cta-headline">
-      Share this media with your team,<br />
+      Share this video with your team,<br />
       or invite Dr. Musamali to speak into your <em>next transition.</em>
     </h2>
     <p class="cta-sub">
-      Use the conversation above as a starting point with your group, then reach out if you’d like a more tailored session, workshop, or facilitated dialogue around the transitions you’re actually living.
+      This video is one expression of <strong>The Power of Transition</strong> — Dr. Musamali’s ongoing work on intentional change, resilience, and transformation. To explore consulting, training, or a tailored session for your context, you can reach out directly or connect via his professional channels.
     </p>
     <div class="cta-actions">
-      <a href="mailto:info@example.com?subject=Media%20Inquiry%20with%20Dr.%20Musamali" class="btn-cta-primary">
-        <span>Inquire about a session</span>
+      <a href="mailto:services@kennedymusamali.com?subject=The%20Real%20Reason%20Change%20Fails%20-%20Media%20Inquiry" class="btn-cta-primary">
+        <span>Inquire about consulting or training</span>
       </a>
-      <a href="index.html#contact" class="btn-cta-secondary">
-        <span>Return to the main contact form</span>
+      <a href="https://www.linkedin.com" class="btn-cta-secondary">
+        <span>Follow on LinkedIn & share the article</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
