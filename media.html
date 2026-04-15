@@ -686,7 +686,41 @@
       <div class="hero-watermark">Media</div>
     </div>
   </section>
+      <!-- REFLECTION CHATBOT -->
+      <section class="reflection-chat reveal delay-3" id="reflection-chat">
+        <div class="reflection-header">
+          <div class="reflection-icon">
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7-.977 0-1.91-.164-2.776-.466L3 17l.707-2.121C3.26 13.83 3 12.94 3 12c0-3.866 3.582-7 8-7s7 3.134 7 7zM8.75 9.75a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0zm5 0a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="reflection-title">Take a quiet moment with what you just heard</h3>
+            <p class="reflection-subtitle">
+              A short, guided reflection based on “The Real Reason Change Fails.” This is not counseling or therapy, just a gentle way to connect the video to your own story.
+            </p>
+          </div>
+        </div>
 
+        <div class="reflection-privacy">
+          For privacy, your conversation here disappears when you close this page.
+        </div>
+
+        <div class="reflection-chat-window" id="reflection-window">
+          <!-- Messages will be injected here -->
+        </div>
+
+        <form class="reflection-input-row" id="reflection-form">
+          <label for="reflection-input" class="sr-only">Your reflection</label>
+          <textarea
+            id="reflection-input"
+            class="reflection-input"
+            rows="2"
+            placeholder="Type your response here and press Enter (or click Send)…"
+          ></textarea>
+          <button type="submit" class="reflection-send-btn">Send</button>
+        </form>
+      </section>
   <!-- STRIP -->
   <section class="strip">
     <div class="strip-inner">
