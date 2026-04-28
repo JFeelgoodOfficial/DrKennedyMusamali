@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>drkm blog 001 — Dr. Kennedy Musamali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#F9F6F0;--cream-dark:#EFE9DF;--sage:#7A9E8E;--sage-light:#A8C4B8;--sage-dark:#4D7A6A;--earth:#8B6F5C;--stone:#6B6259;--ink:#2A2420;--ink-soft:#4A433E;--warm-white:#FDFAF5;--gold:#C9A96E;--font-display:"Cormorant Garamond",Georgia,serif;--font-body:"DM Sans",system-ui,sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--warm-white);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 3rem;background:rgba(253,250,245,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(122,158,142,.15);transition:.4s cubic-bezier(.25,.46,.45,.94)}
+nav.scrolled{padding:1rem 3rem}
+.nav-logo{font-family:var(--font-display);font-size:1.15rem;font-weight:500;color:var(--ink);letter-spacing:.02em;text-decoration:none}
+.nav-logo span{color:var(--sage-dark)}
+.nav-links{display:flex;align-items:center;gap:2.5rem}
+.nav-links a{font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);text-decoration:none;transition:color .25s}
+.nav-links a:hover{color:var(--sage-dark)}
+.nav-cta{font-size:.78rem!important;letter-spacing:.1em!important;background:var(--sage-dark)!important;color:#fff!important;padding:.6rem 1.4rem;border-radius:2rem;transition:background .25s,transform .2s!important}
+.nav-cta:hover{background:var(--sage)!important;transform:translateY(-1px)}
+@media(max-width:760px){nav{padding:1rem 1.25rem}.nav-links{gap:1.1rem}.nav-links a:not(.nav-cta){display:none}}
+footer{display:flex;align-items:center;justify-content:space-between;padding:2.5rem 3rem;background:var(--cream);border-top:1px solid rgba(122,158,142,.15);margin-top:6rem;flex-wrap:wrap;gap:1.5rem}
+.foot-logo{font-family:var(--font-display);font-size:1.05rem;color:var(--ink)}
+.foot-logo span{color:var(--sage-dark)}
+.foot-links{display:flex;gap:1.75rem;flex-wrap:wrap}
+.foot-links a{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--sage-dark)}
+.foot-copy{font-size:.75rem;color:var(--stone);letter-spacing:.04em}
+@media(max-width:760px){footer{flex-direction:column;text-align:center;padding:2rem}}
+</style>
+<style>
+.post-wrap{max-width:760px;margin:0 auto;padding:9rem 2rem 2rem}
+.post-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-dark);font-weight:500;margin-bottom:1.5rem}
+.post-eyebrow::before{content:"";display:block;width:28px;height:1px;background:var(--sage-dark)}
+.post-title{font-family:var(--font-display);font-weight:300;font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:1.15;letter-spacing:-.01em;color:var(--ink);margin-bottom:1rem}
+.post-meta{font-size:.85rem;color:var(--stone);letter-spacing:.04em;margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(122,158,142,.18)}
+.post-body{color:var(--ink-soft);font-size:1.05rem;line-height:1.85;font-weight:300}
+.post-body p{margin:0 0 1.5rem}
+.post-body h2{font-family:var(--font-display);font-weight:400;font-size:1.85rem;color:var(--ink);margin:3rem 0 1rem;line-height:1.25}
+.post-body h3{font-family:var(--font-display);font-weight:500;font-size:1.4rem;color:var(--ink);margin:2.5rem 0 .85rem}
+.post-body h4{font-size:1.05rem;font-weight:500;color:var(--ink);margin:2rem 0 .5rem;letter-spacing:.02em}
+.post-body a{color:var(--sage-dark);text-decoration:none;border-bottom:1px solid var(--sage-light);transition:color .2s,border-color .2s}
+.post-body a:hover{color:var(--sage);border-color:var(--sage)}
+.post-body strong{color:var(--ink);font-weight:600}
+.post-body em{font-style:italic}
+.post-body ul,.post-body ol{margin:0 0 1.5rem 1.25rem;padding-left:.75rem}
+.post-body li{margin-bottom:.5rem;padding-left:.35rem}
+.post-body ul li::marker{color:var(--sage-dark)}
+.post-body blockquote{border-left:2px solid var(--sage-light);padding:.5rem 0 .5rem 1.5rem;margin:1.5rem 0;font-family:var(--font-display);font-style:italic;font-size:1.2rem;color:var(--stone)}
+.post-back{display:inline-flex;align-items:center;gap:.5rem;margin-top:4rem;padding-top:2rem;border-top:1px solid rgba(122,158,142,.18);width:100%;color:var(--sage-dark);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:color .2s}
+.post-back:hover{color:var(--sage)}
+@media(max-width:680px){.post-wrap{padding:7rem 1.25rem 1rem}.post-body{font-size:1rem}}
+</style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="nav-logo">Dr. Kennedy <span>Musamali</span></a>
+  <div class="nav-links">
+    <a href="/index.html#services">Services</a>
+    <a href="/index.html#about">About</a>
+    <a href="/blog.html">Blog</a>
+    <a href="/courses.html">Courses</a>
+    <a href="/index.html#consult" class="nav-cta">Free Consultation</a>
+  </div>
+</nav>
+<main class="post-wrap">
+  <article>
+    <div class="post-eyebrow">Insights</div>
+    <h1 class="post-title">drkm blog 001</h1>
+    <div class="post-meta">April 27, 2026</div>
+    <div class="post-body">
+<p><strong>The Power of Transition</strong><em>20 subscribers · Subscribed</em></p>
+<p><strong>NEWSLETTER</strong></p>
+<h2><strong>THE POWER OF TRANSITION</strong></h2>
+<p><em>Insights for Managing Adaptive Change</em></p>
+<p><strong>TRANSFORMATION BY DESIGN</strong></p>
+<h3><strong>The Real Reason Change Fails</strong></h3>
+<p><strong>Kennedy Muzamal EdD, LPC</strong> 🔵Change &amp; Transition Management Strategist | Licensed Professional (LPC-S) | Resilience Architect</p>
+<p><em>April 14, 2026</em></p>
+<p><strong>Transformation is a process, not an event.</strong><em>— John P. Kotter</em></p>
+<p>Research consistently shows that most change efforts struggle not because the strategy is flawed, but because the internal transition is unmanaged. Published organizational change studies commonly find that only 25% to 33% of major change efforts achieve full potential. The results vary depending on the definition and context. However, the pattern is clear: Change does not fail for technical reasons, it fails for human ones.</p>
+<h3><strong>Why Organizational Change Fails</strong></h3>
+<p>While there are multiple reasons as to why change fails, here are three notable ones:</p>
+<ul>
+<li><strong>We focus on the external shift and ignore the internal process.</strong> Organizations treat people like machinery and assume a new system, structure, or leader will automatically improve performance. But organizations are collections of people, and people do not simply switch over.</li>
+<li><strong>We confuse change with transition.</strong> Change is situational and fast. Transition is psychological and slow. Change is installing a new Customer Relationship Management (CRM) system. Transition is letting go of familiar routine, mourning what worked, and feeling incompetent again.</li>
+<li><strong>We demand transformation without preparing people for it.</strong> When leaders push people to change but don't prepare them, they don't get alignment. They get chaos, burnout, and silent sabotage.</li>
+</ul>
+<h3><strong>Where Change Actually Fails</strong></h3>
+<p>To quote Peter Senge: <strong>&quot;People don't resist change. They resist being changed.&quot;</strong> Here are the reasons why change efforts fail:</p>
+<ul>
+<li><strong>People are pushed to move on before deconstructing what came before.</strong> Loss must be named, acknowledged, and processed before people can let go of the old to make space for the new.</li>
+<li><strong>Organizations demand adaptation without supporting adjustment.</strong> Telling people to &quot;be agile&quot; or to &quot;grow&quot; is one thing; to leave no permission to struggle, and no grace for mistakes is abandonment, not leadership.</li>
+<li><strong>Expecting people to integrate new realities without psychological scaffolding.</strong> Scaffolding includes acknowledging loss, training that respects the learning curve, and the emotional safety to say, &quot;I do not know how to do this yet.&quot;</li>
+</ul>
+<h3><strong>What Needs to Be Embraced</strong></h3>
+<p>Transitions are incubators of transformation. Without managing transitions, change goes nowhere; an expensive disruption that leads nowhere. People go through the motions, check the boxes, and comply publicly, but never arrive at the new reality. They become ghosts of the past, physically present but still with an old mindset. Slowing down to manage transitions is the most effective way to accelerate transformation. <strong>Embrace the transition process.</strong></p>
+
+    </div>
+    <a href="/blog.html" class="post-back">← All posts</a>
+  </article>
+</main>
+<footer>
+  <div class="foot-logo">Dr. Kennedy <span>Musamali</span></div>
+  <div class="foot-links">
+    <a href="/index.html#services">Services</a>
+    <a href="/index.html#about">About</a>
+    <a href="/blog.html">Blog</a>
+    <a href="/courses.html">Courses</a>
+    <a href="/index.html#consult">Contact</a>
+  </div>
+  <div class="foot-copy">© 2025 Transition Consulting Services · Dallas–Fort Worth, TX</div>
+</footer>
+<script>
+  const nav=document.getElementById("main-nav");
+  window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>50));
+</script>
+</body>
+</html>
