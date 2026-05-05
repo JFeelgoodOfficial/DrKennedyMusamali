@@ -13,6 +13,8 @@ const path = require('path');
 
 const ROOT   = path.resolve(__dirname, '..');
 const IGNORE = ['node_modules'];
+// Widget/template HTML files that are not standalone pages
+const SEO_EXCLUDE = ['KITChat.html'];
 
 function walk(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -60,7 +62,7 @@ if (!fs.existsSync(sitemapPath)) {
 }
 
 // 3. Per-HTML SEO checks
-const htmlFiles = walk(ROOT).filter(f => f.endsWith('.html'));
+const htmlFiles = walk(ROOT).filter(f => f.endsWith('.html') && !SEO_EXCLUDE.includes(path.basename(f)));
 
 for (const file of htmlFiles) {
   const content = fs.readFileSync(file, 'utf8');
