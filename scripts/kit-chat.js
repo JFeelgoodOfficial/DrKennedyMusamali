@@ -94,8 +94,9 @@
     const snap     = [...conversationHistory];
     const stepSnap = messageCount;
 
-    fetch('https://script.google.com/macros/s/AKfycbxZhDoMCg8KXPsEkBeWwLd3qiyuots_nkxVJ1J5Kn1cg2aYvIJWjuyG6ndG4agIE3uE/exec', {
+    fetch('/api/chat', {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ history: snap, step: stepSnap })
     })
       .then(r => r.text())
