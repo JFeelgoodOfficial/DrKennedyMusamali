@@ -42,6 +42,8 @@ for (const file of htmlFiles) {
     if (/^(https?:|mailto:|tel:|data:|\/\/|#)/.test(raw)) continue;
     // Vercel analytics/edge and Cloudflare paths only exist in production
     if (raw.startsWith('/_vercel/') || raw.startsWith('/cdn-cgi/')) continue;
+    // Skip JS template expressions embedded in HTML (e.g. widget script templates)
+    if (raw.includes('${')) continue;
 
     // Resolve path relative to the HTML file
     const abs = raw.startsWith('/')
