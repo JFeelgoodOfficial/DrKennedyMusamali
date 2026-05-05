@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dr-kennedy-musamali.vercel.app/sitemap.xml
