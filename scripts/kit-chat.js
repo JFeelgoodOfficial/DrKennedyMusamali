@@ -99,7 +99,10 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ history: snap, step: stepSnap })
     })
-      .then(r => r.text())
+      .then(r => {
+        if (!r.ok) return Promise.reject(new Error('status ' + r.status));
+        return r.text();
+      })
       .then(reply => onReply(reply))
       .catch(err  => onError(err));
   }
