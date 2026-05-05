@@ -94,10 +94,13 @@
     const snap     = [...conversationHistory];
     const stepSnap = messageCount;
 
-    google.script.run
-      .withSuccessHandler(reply => onReply(reply))
-      .withFailureHandler(err   => onError(err))
-      .chat(snap, stepSnap);
+    fetch('https://script.google.com/macros/s/AKfycbxZhDoMCg8KXPsEkBeWwLd3qiyuots_nkxVJ1J5Kn1cg2aYvIJWjuyG6ndG4agIE3uE/exec', {
+      method: 'POST',
+      body: JSON.stringify({ history: snap, step: stepSnap })
+    })
+      .then(r => r.text())
+      .then(reply => onReply(reply))
+      .catch(err  => onError(err));
   }
 
   function onReply(raw) {
