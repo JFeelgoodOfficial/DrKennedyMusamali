@@ -2551,7 +2551,26 @@ footer{display:flex;align-items:center;justify-content:space-between;padding:2.5
 @media(max-width:760px){
 footer{flex-direction:column;text-align:center;padding:2rem}}
 
-.page-blog .blog-hero{max-width:900px;margin:0 auto;padding:9rem 2rem 3rem;text-align:center}
+/* ── NEWSLETTER BANNER ────────────────────────────────────────────── */
+.newsletter-banner{position:relative;background:#EDE8DE;overflow:hidden;display:flex;align-items:center;min-height:260px;padding:6.5rem 4rem 3.5rem}
+.newsletter-banner__content{flex:1;min-width:0;z-index:1}
+.newsletter-banner__label{font-family:var(--font-body);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);margin-bottom:1rem;font-weight:400}
+.newsletter-banner__title{font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;color:var(--ink);line-height:1.05;letter-spacing:-.01em;margin:0 0 1.25rem}
+.newsletter-banner__subtitle{font-family:var(--font-body);font-size:1rem;color:var(--ink);line-height:1.6;font-weight:400;margin:0}
+.newsletter-banner__tagline{position:absolute;bottom:2.25rem;right:11rem;font-family:var(--font-body);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-align:right;font-weight:500;line-height:1.9;z-index:1}
+.newsletter-banner__graphic{width:160px;flex-shrink:0;align-self:stretch;display:flex;align-items:center;margin-left:2rem}
+.newsletter-banner__leaf{width:100%;height:auto;display:block}
+@media(max-width:760px){
+.newsletter-banner{padding:5.5rem 1.5rem 3rem;min-height:220px}
+.newsletter-banner__graphic{width:120px;margin-left:1rem}
+.newsletter-banner__tagline{right:8rem}}
+@media(max-width:520px){
+.newsletter-banner{flex-wrap:wrap}
+.newsletter-banner__graphic{position:absolute;right:0;top:0;bottom:0;width:100px;margin-left:0;align-items:flex-end}
+.newsletter-banner__tagline{position:static;text-align:left;margin-top:1.25rem}}
+
+/* ── PAGE-BLOG STYLES ──────────────────────────────── */
+.page-blog .blog-hero{max-width:900px;margin:0 auto;padding:3rem 2rem 3rem;text-align:center}
 
 .page-blog .blog-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-dark);font-weight:500;margin-bottom:1.25rem}
 
@@ -2579,7 +2598,7 @@ footer{flex-direction:column;text-align:center;padding:2rem}}
 
 .page-blog .post-empty{max-width:600px;margin:0 auto;padding:2rem;text-align:center;color:var(--stone);font-style:italic;font-family:var(--font-display);font-size:1.2rem}
 @media(max-width:680px){
-.page-blog .blog-hero{padding:7rem 1.25rem 2rem}
+.page-blog .blog-hero{padding:2rem 1.25rem 2rem}
 .page-blog .post-list{padding:1rem 1.25rem 3rem}
 .page-blog .post-item{padding:1.75rem 1.5rem}
 .page-blog .post-item-title{font-size:1.4rem}}
@@ -2625,7 +2644,7 @@ footer{display:flex;align-items:center;justify-content:space-between;padding:2.5
 @media(max-width:760px){
 footer{flex-direction:column;text-align:center;padding:2rem}}
 
-.page-post .post-wrap{max-width:760px;margin:0 auto;padding:9rem 2rem 2rem}
+.page-post .post-wrap{max-width:760px;margin:0 auto;padding:3rem 2rem 2rem}
 
 .page-post .post-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-dark);font-weight:500;margin-bottom:1.5rem}
 
@@ -2664,5 +2683,5 @@ footer{flex-direction:column;text-align:center;padding:2rem}}
 
 .page-post .post-back:hover{color:var(--sage)}
 @media(max-width:680px){
-.page-post .post-wrap{padding:7rem 1.25rem 1rem}
+.page-post .post-wrap{padding:2rem 1.25rem 1rem}
 .page-post .post-body{font-size:1rem}}
