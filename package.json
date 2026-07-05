@@ -4,14 +4,14 @@
   "description": "readme",
   "main": "index.js",
   "scripts": {
-    "check:links":  "node tools/check-dead-links.js",
+    "check:links": "node tools/check-dead-links.js",
     "check:images": "node tools/check-images.js",
-    "check:seo":    "node tools/check-seo-files.js",
-    "lint:html":    "html-validate '*.html' 'blog/*.html'",
-    "lint:css":     "stylelint 'styles/**/*.css'",
-    "lint":         "npm run lint:html && npm run lint:css",
-    "check":        "npm run check:links && npm run check:images && npm run check:seo",
-    "test":         "npm run check && npm run lint"
+    "check:seo": "node tools/check-seo-files.js",
+    "lint:html": "html-validate '*.html' 'blog/*.html'",
+    "lint:css": "stylelint 'styles/**/*.css'",
+    "lint": "npm run lint:html && npm run lint:css",
+    "check": "npm run check:links && npm run check:images && npm run check:seo",
+    "test": "npm run check && npm run lint"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "html-validate": "^10.15.0",
     "prettier": "^3.8.3",
     "serve": "^14.2.6",
+    "sharp": "^0.35.3",
     "stylelint": "^17.10.0",
     "stylelint-config-standard": "^40.0.0"
   }
