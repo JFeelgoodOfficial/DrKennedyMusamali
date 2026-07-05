@@ -2746,3 +2746,19 @@ footer{flex-direction:column;text-align:center;padding:2rem}}
 @media(max-width:680px){
 .page-post .post-wrap{padding:2rem 1.25rem 1rem}
 .page-post .post-body{font-size:1rem}}
+/* ── FAQ section ─────────────────────────────────────────── */
+.faq-list{max-width:760px;margin-top:2.5rem}
+
+.faq-item{border-bottom:1px solid rgba(122,158,142,.18);padding:.25rem 0}
+
+.faq-q{font-family:var(--font-display);font-size:1.3rem;font-weight:500;color:var(--ink);padding:1.1rem 2rem 1.1rem 0;cursor:pointer;list-style:none;position:relative;transition:color .2s}
+
+.faq-q::-webkit-details-marker{display:none}
+
+.faq-q::after{content:"+";position:absolute;right:.25rem;top:50%;transform:translateY(-50%);font-family:var(--font-body);font-weight:300;font-size:1.4rem;color:var(--sage-dark);transition:transform .25s}
+
+.faq-item[open] .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+
+.faq-q:hover{color:var(--sage-dark)}
+
+.faq-a{color:var(--ink-soft);font-size:1rem;line-height:1.8;font-weight:300;padding:0 0 1.4rem;max-width:680px}

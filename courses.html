@@ -7,16 +7,21 @@
 <meta name="description" content="Explore five transition course topics by Dr. Kennedy Musamali — College, Career, Cross-Cultural, Organizational, and Life Transitions — offered as live webinars, self-paced, or in-person workshops.">
 <meta property="og:title" content="Courses | Dr. Kennedy Musamali">
 <meta property="og:description" content="Five transition course topics covering College, Career, Cross-Cultural, Organizational, and Life Transitions. Available as live webinar, self-paced, or in-person workshop at three skill levels.">
-<meta property="og:image" content="https://dr-kennedy-musamali.vercel.app/kennedy-musamali-headshot.jpg">
-<meta property="og:url" content="https://dr-kennedy-musamali.vercel.app/courses.html">
+<meta property="og:image" content="https://www.kennedymusamali.com/kennedy-musamali-headshot.jpg">
+<meta property="og:url" content="https://www.kennedymusamali.com/courses.html">
 <meta property="og:type" content="website">
-<link rel="canonical" href="https://dr-kennedy-musamali.vercel.app/courses.html">
+<meta property="og:site_name" content="Dr. Kennedy Musamali">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Courses | Dr. Kennedy Musamali">
+<meta name="twitter:description" content="Five transition course topics covering College, Career, Cross-Cultural, Organizational, and Life Transitions. Available as live webinar, self-paced, or in-person workshop at three skill levels.">
+<meta name="twitter:image" content="https://www.kennedymusamali.com/kennedy-musamali-headshot.jpg">
+<link rel="canonical" href="https://www.kennedymusamali.com/courses.html">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Transition Courses — Dr. Kennedy Musamali",
-  "url": "https://dr-kennedy-musamali.vercel.app/courses.html",
+  "url": "https://www.kennedymusamali.com/courses.html",
   "itemListElement": [
     {
       "@type": "ListItem",
@@ -74,9 +79,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
+<script defer src="/scripts/site.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/styles/kit-chat.css">
@@ -466,55 +469,12 @@
   <div class="foot-copy">© 2025 Transition Consulting Services · Dallas–Fort Worth, TX</div>
 </footer>
 
-<script>
-document.body.classList.add('js-loaded');
-document.body.classList.add('js-cursor');
-document.body.style.cursor = 'none';
-
-const nav = document.getElementById('main-nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 50);
-});
-
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => observer.observe(el));
-
-document.querySelectorAll('.courses-hero .reveal, .hero-eyebrow, .courses-hero h1, .courses-hero-sub, .hero-strip').forEach(el => {
-  setTimeout(() => el.classList.add('visible'), 80);
-});
-
-const cursor = document.getElementById('cursor');
-let mx = -100, my = -100, cx = -100, cy = -100;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.classList.add('visible'); });
-document.addEventListener('mouseleave', () => cursor.classList.remove('visible'));
-document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
-document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
-document.querySelectorAll('a, button, .course-card, .hook-q, .level-card').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-});
-function animateCursor() {
-  cx += (mx - cx) * 0.18;
-  cy += (my - cy) * 0.18;
-  cursor.style.left = cx + 'px';
-  cursor.style.top = cy + 'px';
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
-</script>
 
 <!-- KIT Transition Coach -->
 <div class="kit">
   <div class="launcher">
-    <div class="launcher-label" id="launcher-label" onclick="toggleChat()">Talk to a Transition Coach</div>
-    <button class="launcher-btn" id="launcher-btn" type="button" onclick="toggleChat()" aria-label="Open KIT Transition Coach">
+    <div class="launcher-label" id="launcher-label">Talk to a Transition Coach</div>
+    <button class="launcher-btn" id="launcher-btn" type="button" aria-label="Open KIT Transition Coach">
       <svg class="icon-open" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
       <svg class="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
       <span class="unread-dot" id="unread-dot"></span>
