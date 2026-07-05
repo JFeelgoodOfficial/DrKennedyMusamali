@@ -168,6 +168,20 @@
     scrollBottom();
   }
 
+  // The CTA payload comes from model output, so the link target must be
+  // pinned to our own https origin — anything else falls back to the homepage.
+  function safeCtaUrl(raw) {
+    const FALLBACK = 'https://www.kennedymusamali.com';
+    try {
+      const u = new URL(String(raw || ''));
+      if (u.protocol === 'https:' &&
+          (u.hostname === 'www.kennedymusamali.com' || u.hostname === 'kennedymusamali.com')) {
+        return u.href;
+      }
+    } catch (e) { /* fall through */ }
+    return FALLBACK;
+  }
+
   function appendCtaCard(cta) {
     const badgeMap = {
       counseling:            'Recommended: Counseling',
@@ -187,7 +201,7 @@
       '<div class="cta-badge">' + (badgeMap[cta.type] || 'Your Next Step') + '</div>' +
       '<div class="cta-title">' + escapeHtml(cta.title || '') + '</div>' +
       '<div class="cta-desc">'  + escapeHtml(cta.description || '') + '</div>' +
-      '<a class="cta-btn" href="' + escapeHtml(cta.url || 'https://www.kennedymusamali.com') + '" target="_blank" rel="noopener">' +
+      '<a class="cta-btn" href="' + escapeHtml(safeCtaUrl(cta.url)) + '" target="_blank" rel="noopener">' +
         escapeHtml(cta.label || 'Learn More') +
       '</a>';
     messagesArea.appendChild(card);
@@ -243,5 +257,6 @@
   });
   inputField.addEventListener('input', autoResize);
 
-  window.toggleChat = toggleChat;
+  launcherBtn.addEventListener('click', toggleChat);
+  launcherLbl.addEventListener('click', toggleChat);
 }());

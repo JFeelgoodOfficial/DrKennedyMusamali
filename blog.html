@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/scripts/site.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/styles/kit-chat.css">
@@ -174,16 +174,11 @@
   </div>
   <div class="foot-copy">© 2025 Transition Consulting Services · Dallas–Fort Worth, TX</div>
 </footer>
-<script>
-  const nav=document.getElementById("main-nav");
-  window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>50));
-</script>
-
 <!-- KIT Transition Coach -->
 <div class="kit">
   <div class="launcher">
-    <div class="launcher-label" id="launcher-label" onclick="toggleChat()">Talk to a Transition Coach</div>
-    <button class="launcher-btn" id="launcher-btn" type="button" onclick="toggleChat()" aria-label="Open KIT Transition Coach">
+    <div class="launcher-label" id="launcher-label">Talk to a Transition Coach</div>
+    <button class="launcher-btn" id="launcher-btn" type="button" aria-label="Open KIT Transition Coach">
       <svg class="icon-open" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
       <svg class="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
       <span class="unread-dot" id="unread-dot"></span>

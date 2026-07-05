@@ -11,10 +11,11 @@
 const fs   = require('fs');
 const path = require('path');
 
-const ROOT   = path.resolve(__dirname, '..');
-const IGNORE = ['node_modules'];
+// Optional first CLI arg: root directory to scan (defaults to the repo root).
+const ROOT   = path.resolve(process.argv[2] || path.join(__dirname, '..'));
+const IGNORE = ['node_modules', 'dist', 'studio', 'templates', 'tools'];
 // Widget/template HTML files that are not standalone pages
-const SEO_EXCLUDE = ['KITChat.html'];
+const SEO_EXCLUDE = ['KITChat.html', '_template.html'];
 
 function walk(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
