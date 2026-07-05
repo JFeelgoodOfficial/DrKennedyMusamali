@@ -88,19 +88,102 @@ At the very end of your message append this marker on its own line. Every field 
   return base;
 }
 
+// Origins allowed to call this endpoint. Browsers always send an Origin
+// header on cross- and same-origin POST fetches, so a missing/foreign
+// Origin means the request did not come from our pages.
+const ALLOWED_ORIGINS = new Set([
+  'https://www.kennedymusamali.com',
+  'https://kennedymusamali.com',
+  'https://dr-kennedy-musamali.vercel.app',
+]);
+
+const MAX_HISTORY_ENTRIES = 30;
+const MAX_CONTENT_CHARS = 4000;
+const MAX_BODY_BYTES = 32 * 1024;
+
+// Best-effort per-IP rate limit. Serverless instances are stateless and
+// scale horizontally, so this only bounds abuse per warm instance — the
+// payload caps above are the real cost bound.
+const RATE_LIMIT = 20;
+const RATE_WINDOW_MS = 5 * 60 * 1000;
+const hits = new Map();
+
+function rateLimited(ip) {
+  const now = Date.now();
+  const list = (hits.get(ip) || []).filter(t => now - t < RATE_WINDOW_MS);
+  if (list.length >= RATE_LIMIT) {
+    hits.set(ip, list);
+    return true;
+  }
+  list.push(now);
+  hits.set(ip, list);
+  if (hits.size > 5000) hits.clear();
+  return false;
+}
+
+function requestOrigin(req) {
+  if (req.headers.origin) return req.headers.origin;
+  try {
+    return new URL(req.headers.referer).origin;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Returns {history, step} or null when the payload is malformed/oversized.
+function validateBody(body) {
+  if (!body || typeof body !== 'object') return null;
+  if (JSON.stringify(body).length > MAX_BODY_BYTES) return null;
+
+  let step = parseInt(body.step, 10);
+  if (!Number.isFinite(step)) return null;
+  step = Math.min(Math.max(step, 1), 10);
+
+  const rawHistory = body.history;
+  if (!Array.isArray(rawHistory) || rawHistory.length > MAX_HISTORY_ENTRIES) return null;
+
+  const history = [];
+  for (const entry of rawHistory) {
+    if (!entry || typeof entry !== 'object') return null;
+    if (entry.role !== 'user' && entry.role !== 'assistant') return null;
+    if (typeof entry.content !== 'string' || entry.content.length > MAX_CONTENT_CHARS) return null;
+    history.push({ role: entry.role, content: entry.content });
+  }
+
+  return { history, step };
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).end();
     return;
   }
 
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) {
-    res.status(500).send('GROQ_API_KEY environment variable is not set in Vercel.');
+  const origin = requestOrigin(req);
+  if (!origin || !ALLOWED_ORIGINS.has(origin)) {
+    res.status(403).send('Forbidden');
     return;
   }
 
-  const { history, step } = req.body || {};
+  const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+  if (rateLimited(ip)) {
+    res.status(429).send('Too many requests. Please slow down.');
+    return;
+  }
+
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
+    console.error('GROQ_API_KEY is not configured');
+    res.status(500).send('Server error');
+    return;
+  }
+
+  const validated = validateBody(req.body);
+  if (!validated) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+  const { history, step } = validated;
 
   try {
     const r = await fetch(GROQ_API_URL, {
@@ -115,7 +198,7 @@ module.exports = async function handler(req, res) {
         temperature: 0.75,
         messages: [
           { role: 'system', content: buildSystemPrompt(step) },
-          ...(history || []),
+          ...history,
         ],
       }),
     });
@@ -124,7 +207,7 @@ module.exports = async function handler(req, res) {
 
     if (data.error) {
       console.error('Groq error:', data.error);
-      res.status(502).send('Groq API error: ' + data.error.message);
+      res.status(502).send('Upstream error');
       return;
     }
 
@@ -132,6 +215,6 @@ module.exports = async function handler(req, res) {
     res.status(200).send(data.choices[0].message.content);
   } catch (err) {
     console.error('chat error:', err);
-    res.status(500).send('error');
+    res.status(500).send('Server error');
   }
 };
