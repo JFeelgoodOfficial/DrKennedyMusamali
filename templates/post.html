@@ -3,39 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POST TITLE — Dr. Kennedy Musamali</title>
-<meta name="description" content="POST DESCRIPTION">
-<meta property="og:title" content="POST TITLE — Dr. Kennedy Musamali">
-<meta property="og:description" content="POST DESCRIPTION">
+<title>{{TITLE}} — Dr. Kennedy Musamali</title>
+<meta name="description" content="{{DESC}}">
+<meta property="og:title" content="{{TITLE}} — Dr. Kennedy Musamali">
+<meta property="og:description" content="{{DESC}}">
 <meta property="og:image" content="https://www.kennedymusamali.com/kennedy-musamali-headshot.jpg">
-<meta property="og:url" content="https://www.kennedymusamali.com/blog/POST-SLUG.html">
+<meta property="og:url" content="https://www.kennedymusamali.com/blog/{{SLUG}}.html">
 <meta property="og:type" content="article">
-<link rel="canonical" href="https://www.kennedymusamali.com/blog/POST-SLUG.html">
+<meta property="og:site_name" content="Dr. Kennedy Musamali">
+<meta property="article:published_time" content="{{DATE_ISO}}">
+<meta property="article:author" content="Dr. Kennedy Musamali">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{TITLE}} — Dr. Kennedy Musamali">
+<meta name="twitter:description" content="{{DESC}}">
+<meta name="twitter:image" content="https://www.kennedymusamali.com/kennedy-musamali-headshot.jpg">
+<link rel="canonical" href="https://www.kennedymusamali.com/blog/{{SLUG}}.html">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "POST TITLE",
-  "description": "POST DESCRIPTION",
-  "datePublished": "YYYY-MM-DD",
-  "url": "https://www.kennedymusamali.com/blog/POST-SLUG.html",
+  "headline": {{TITLE_JSON}},
+  "description": {{DESC_JSON}},
+  "datePublished": "{{DATE_ISO}}",
+  "dateModified": "{{DATE_ISO}}",
+  "url": "https://www.kennedymusamali.com/blog/{{SLUG}}.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.kennedymusamali.com/blog/{{SLUG}}.html"
+  },
+  "image": "https://www.kennedymusamali.com/kennedy-musamali-headshot.jpg",
   "author": {
     "@type": "Person",
-    "name": "Dr. Kennedy Musamali"
+    "name": "Dr. Kennedy Musamali",
+    "url": "https://www.kennedymusamali.com/"
   },
   "publisher": {
     "@type": "Person",
-    "name": "Dr. Kennedy Musamali"
+    "name": "Dr. Kennedy Musamali",
+    "url": "https://www.kennedymusamali.com/"
   }
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/scripts/site.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
-<link rel="stylesheet" href="../styles/main.css">
-<link rel="stylesheet" href="../styles/kit-chat.css">
+<link rel="stylesheet" href="/styles/main.css">
+<link rel="stylesheet" href="/styles/kit-chat.css">
 </head>
 <body class="page-post">
 <nav id="main-nav">
@@ -57,12 +72,10 @@
 <main class="post-wrap">
   <article>
     <div class="post-eyebrow">Insights</div>
-    <h1 class="post-title">POST TITLE</h1>
-    <div class="post-meta">MONTH DD, YYYY</div>
+    <h1 class="post-title">{{TITLE}}</h1>
+    <div class="post-meta">{{DATE_HUMAN}}</div>
     <div class="post-body">
-
-<!-- POST CONTENT HERE -->
-
+{{BODY}}
     </div>
     <a href="/blog.html" class="post-back">← All posts</a>
   </article>
@@ -78,16 +91,12 @@
   </div>
   <div class="foot-copy">© 2025 Transition Consulting Services · Dallas–Fort Worth, TX</div>
 </footer>
-<script>
-  const nav=document.getElementById("main-nav");
-  window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>50));
-</script>
 
 <!-- KIT Transition Coach -->
 <div class="kit">
   <div class="launcher">
-    <div class="launcher-label" id="launcher-label" onclick="toggleChat()">Talk to a Transition Coach</div>
-    <button class="launcher-btn" id="launcher-btn" type="button" onclick="toggleChat()" aria-label="Open KIT Transition Coach">
+    <div class="launcher-label" id="launcher-label">Talk to a Transition Coach</div>
+    <button class="launcher-btn" id="launcher-btn" type="button" aria-label="Open KIT Transition Coach">
       <svg class="icon-open" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
       <svg class="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
       <span class="unread-dot" id="unread-dot"></span>
@@ -126,6 +135,6 @@
     </div>
   </div>
 </div>
-<script src="../scripts/kit-chat.js"></script>
+<script src="/scripts/kit-chat.js"></script>
 </body>
 </html>
