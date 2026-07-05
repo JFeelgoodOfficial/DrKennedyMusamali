@@ -1,0 +1,19 @@
+{
+  "name": "drkennedymusamali-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sanity Studio for the Dr. Kennedy Musamali blog",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "@sanity/vision": "^4.10.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sanity": "^4.10.1",
+    "styled-components": "^6.1.18"
+  }
+}
