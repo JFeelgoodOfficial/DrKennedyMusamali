@@ -144,23 +144,29 @@ function buildLlmsTxt(posts) {
   const postLines = posts.map(p =>
     `- [${p.title}](${SITE_URL}/blog/${p.slug}.html): ${p.description}`
   ).join('\n');
-  return `# Dr. Kennedy Musamali — Transition Consulting Services
+  return `# Dr. Kennedy Musamali, Transition Consulting Services
 
-> Dr. Kennedy Musamali, Ed.D., LPC-S, is a transition consultant in the
-> Dallas–Fort Worth, TX area. He helps individuals, couples, and
-> organizations navigate change using his proprietary KIT Model©
-> (Kennedy Integrated Transition Model). Contact:
+> Dr. Kennedy Musamali, Ed.D., LPC-S, is a licensed counselor and change
+> specialist based in the Dallas-Fort Worth, TX area. He helps two kinds of
+> clients navigate change using his step-by-step KIT Model (Kennedy
+> Integrated Transition Model):
+>   1. Individuals and families moving through hard personal transitions,
+>      such as divorce, career change, relocation, grief, or college.
+>   2. Leaders and organizations managing the human side of change, such as
+>      reorgs, mergers, and new systems, so the change sticks instead of
+>      stalling in quiet resistance.
+> Every engagement starts with a free 20-minute consultation. Contact:
 > services@kennedymusamali.com, +1 469-844-8251.
 
 ## Services
 
 - [Home](${SITE_URL}/): Counseling, consulting, coaching, and training for people and organizations in transition.
-- [Courses](${SITE_URL}/courses.html): Five transition course topics — College, Career, Cross-Cultural, Organizational, and Life Transitions.
+- [Courses](${SITE_URL}/courses.html): Five transition course topics, covering College, Career, Cross-Cultural, Organizational, and Life Transitions.
 - [Media](${SITE_URL}/media.html): Talks and video, including "The Real Reason Change Fails".
 
 ## Blog
 
-- [Blog index](${SITE_URL}/blog.html): Notes on transition — the psychology of change, resilience, and transition management.
+- [Blog index](${SITE_URL}/blog.html): Notes on transition, the psychology of change, resilience, and transition management.
 ${postLines}
 `;
 }
