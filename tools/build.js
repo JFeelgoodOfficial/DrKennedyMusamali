@@ -36,6 +36,7 @@ const STATIC_FILES = [
   'index.html',
   'courses.html',
   'media.html',
+  'free-consultation.html',
   'KITChat.html',
   'robots.txt',
   'kennedy-musamali-headshot.jpg',
@@ -47,6 +48,7 @@ const STATIC_DIRS = ['styles', 'scripts'];
 
 const PAGES = [
   { loc: '/', file: 'index.html' },
+  { loc: '/free-consultation.html', file: 'free-consultation.html' },
   { loc: '/blog.html', file: 'blog.html' },
   { loc: '/courses.html', file: 'courses.html' },
   { loc: '/media.html', file: 'media.html' },
@@ -161,6 +163,7 @@ function buildLlmsTxt(posts) {
 ## Services
 
 - [Home](${SITE_URL}/): Counseling, consulting, coaching, and training for people and organizations in transition.
+- [Free consultation](${SITE_URL}/free-consultation.html): Book a free, no-commitment 20-minute consultation. The place to start for all three service lines: personal transition counseling and coaching; organizational change consulting; and training, workshops, and speaking.
 - [Courses](${SITE_URL}/courses.html): Five transition course topics, covering College, Career, Cross-Cultural, Organizational, and Life Transitions.
 - [Media](${SITE_URL}/media.html): Talks and video, including "The Real Reason Change Fails".
 

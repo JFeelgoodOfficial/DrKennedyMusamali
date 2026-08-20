@@ -1,0 +1,1151 @@
+/* =================================================================
+   styles/landing.css — free-consultation.html
+   Standalone stylesheet for the lead-generation landing page.
+
+   Deliberately NOT built on main.css: this page has one job (get a
+   consultation booked), so it carries only the CSS it needs and none of
+   the site-wide layout. Brand tokens below mirror main.css so the page
+   still reads as part of kennedymusamali.com.
+
+   Aesthetic: warm editorial — hairline rules, small-caps labels, set
+   numerals, Cormorant Garamond at display sizes over generous leading.
+   Restraint, executed precisely.
+   ================================================================= */
+
+:root {
+  /* Ground */
+  --lp-bg: #FDFAF5;
+  --lp-panel: #F9F6F0;
+  --lp-panel-deep: #EFE9DF;
+
+  /* Ink */
+  --lp-ink: #2A2420;          /* 14.7:1 on --lp-bg */
+  --lp-ink-soft: #4A433E;
+  --lp-muted: #6B6259;        /* 5.74:1 on --lp-bg */
+
+  /* Green */
+  --lp-forest: #2F5446;       /* button ground — 8.48:1 with white */
+  --lp-forest-hover: #3D6A58;
+  /* Deepened from the site's #4D7A6A: that value is 4.04:1 on
+     --lp-panel-deep, which fails AA for the small-caps labels. This one
+     clears 5.3:1 on every ground used here. */
+  --lp-sage: #3F6656;
+  --lp-sage-light: #A8C4B8;   /* 8.2:1 on --lp-ink */
+  --lp-mist: #B8C9C2;
+
+  /* Accent. --lp-gold is 2.15:1 on cream, so on light ground it is only
+     ever a hairline or a rule; --lp-bronze is its text-safe counterpart
+     (5.08:1 on --lp-bg). On the dark section --lp-gold is 6.84:1 and is
+     used for text there. */
+  --lp-gold: #C9A96E;
+  --lp-bronze: #8A6526;
+
+  --lp-line: rgba(122, 158, 142, 0.22);
+  --lp-line-strong: rgba(42, 36, 32, 0.14);
+
+  --lp-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --lp-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --lp-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --lp-shadow: 0 1px 2px rgba(42, 36, 32, 0.04), 0 12px 32px -12px rgba(42, 36, 32, 0.16);
+  --lp-shadow-lift: 0 2px 4px rgba(42, 36, 32, 0.05), 0 24px 48px -16px rgba(42, 36, 32, 0.22);
+
+  --lp-gutter: 1.5rem;
+  --lp-max: 1200px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body.page-lp {
+  margin: 0;
+  background: var(--lp-bg);
+  color: var(--lp-ink);
+  font-family: var(--lp-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Paper grain. Fixed so it reads as the sheet the page is printed on
+   rather than a texture that scrolls with the content. */
+body.page-lp::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3, p, figure, blockquote { margin: 0; }
+
+a { color: var(--lp-sage); }
+
+/* ── FOCUS ────────────────────────────────────────────────────────
+   Visible on every interactive element. The site's main.css defines no
+   focus styles at all; this page does not repeat that. */
+:focus-visible {
+  outline: 2px solid var(--lp-forest);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.lp-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  padding: 0.85rem 1.4rem;
+  background: var(--lp-ink);
+  color: #FFF;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+}
+
+.lp-skip:focus { left: 0.75rem; top: 0.75rem; }
+
+.lp-wrap {
+  width: 100%;
+  max-width: var(--lp-max);
+  margin-inline: auto;
+  padding-inline: var(--lp-gutter);
+}
+
+/* Small-caps editorial label used to open each section. */
+.lp-label {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1.1rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lp-sage);
+}
+
+.lp-label::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  flex: none;
+  background: var(--lp-gold);
+}
+
+.lp-h2 {
+  font-family: var(--lp-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 6vw, 3.1rem);
+  line-height: 1.14;
+  letter-spacing: -0.012em;
+  color: var(--lp-ink);
+  text-wrap: balance;
+}
+
+.lp-h2 em { font-style: italic; color: var(--lp-sage); }
+
+.lp-lede {
+  max-width: 62ch;
+  margin-top: 1.25rem;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--lp-ink-soft);
+}
+
+/* ── HEADER ───────────────────────────────────────────────────────
+   No navigation links by design. Every outbound link on a lead-gen page
+   is a way to leave without converting; the logo and the phone number
+   are the only things here. */
+.lp-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem var(--lp-gutter);
+  border-bottom: 1px solid var(--lp-line);
+  background: rgba(253, 250, 245, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* inline-block, not inline-flex: a flex container would drop the literal
+   space between "Kennedy" and the coloured "Musamali" span. */
+.lp-logo {
+  display: inline-block;
+  padding-block: 0.6rem;
+  line-height: 1.5;
+  font-family: var(--lp-display);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--lp-ink);
+  text-decoration: none;
+}
+
+.lp-logo span { color: var(--lp-sage); }
+
+.lp-header-tel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.35rem;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--lp-ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lp-header-tel svg { width: 17px; height: 17px; flex: none; color: var(--lp-sage); }
+
+/* Below 600px the number is icon-only on screen but must keep its
+   accessible name, so it is clipped rather than display:none. */
+.lp-header-tel .lp-tel-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.lp-header-tel:hover { color: var(--lp-forest); }
+
+/* ── BUTTONS ──────────────────────────────────────────────────────── */
+.lp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 52px;
+  padding: 0.95rem 1.9rem;
+  border: 1px solid transparent;
+  border-radius: 2rem;
+  font-family: var(--lp-body);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.25s var(--lp-ease), color 0.25s var(--lp-ease),
+              transform 0.2s var(--lp-ease), box-shadow 0.25s var(--lp-ease);
+}
+
+.lp-btn svg { width: 16px; height: 16px; flex: none; }
+
+.lp-btn--primary {
+  width: 100%;
+  background: var(--lp-forest);
+  color: #FFF;
+  box-shadow: var(--lp-shadow);
+}
+
+.lp-btn--primary:hover {
+  background: var(--lp-forest-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--lp-shadow-lift);
+}
+
+.lp-btn--primary:disabled {
+  background: var(--lp-muted);
+  cursor: progress;
+  transform: none;
+}
+
+.lp-btn--ghost {
+  background: transparent;
+  border-color: var(--lp-line-strong);
+  color: var(--lp-ink);
+}
+
+.lp-btn--ghost:hover { border-color: var(--lp-forest); color: var(--lp-forest); }
+
+/* ── HERO ─────────────────────────────────────────────────────────── */
+.lp-hero {
+  position: relative;
+  padding: 3rem 0 3.5rem;
+  overflow: hidden;
+}
+
+/* Soft sage bloom behind the headline. */
+.lp-hero::before {
+  content: "";
+  position: absolute;
+  top: -260px;
+  left: -180px;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 196, 184, 0.22) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+.lp-hero-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.75rem;
+  align-items: start;
+}
+
+.lp-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.4rem;
+  padding: 0.4rem 0.95rem 0.4rem 0.75rem;
+  border: 1px solid var(--lp-line);
+  border-radius: 2rem;
+  background: var(--lp-panel);
+  font-size: 0.71rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lp-sage);
+}
+
+.lp-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--lp-gold);
+}
+
+.lp-h1 {
+  font-family: var(--lp-display);
+  font-weight: 300;
+  font-size: clamp(2.4rem, 9vw, 4.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+  color: var(--lp-ink);
+  text-wrap: balance;
+}
+
+.lp-h1 em {
+  font-style: italic;
+  color: var(--lp-sage);
+}
+
+.lp-hero-sub {
+  max-width: 54ch;
+  margin-top: 1.5rem;
+  font-size: 1.06rem;
+  line-height: 1.8;
+  color: var(--lp-ink-soft);
+}
+
+.lp-hero-sub strong { font-weight: 500; color: var(--lp-ink); }
+
+/* Credibility strip — set numerals over hairline dividers. */
+.lp-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 1.4rem;
+  margin-top: 2.25rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--lp-line);
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+.lp-trust li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: 0.83rem;
+  color: var(--lp-muted);
+}
+
+.lp-trust svg { width: 14px; height: 14px; flex: none; color: var(--lp-sage); align-self: center; }
+
+/* ── FORM CARD ────────────────────────────────────────────────────── */
+.lp-form-card {
+  position: relative;
+  padding: 1.75rem 1.4rem 1.6rem;
+  border: 1px solid var(--lp-line);
+  border-radius: 4px;
+  background: #FFF;
+  box-shadow: var(--lp-shadow);
+}
+
+.lp-form-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(90deg, var(--lp-forest), var(--lp-sage) 55%, var(--lp-gold));
+}
+
+.lp-form-head { margin-bottom: 1.35rem; }
+
+.lp-form-title {
+  font-family: var(--lp-display);
+  font-size: 1.65rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--lp-ink);
+}
+
+.lp-form-note {
+  margin-top: 0.5rem;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--lp-muted);
+}
+
+.lp-field { margin-bottom: 1rem; }
+
+.lp-field label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--lp-ink-soft);
+}
+
+.lp-optional {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--lp-muted);
+}
+
+.lp-input,
+.lp-select,
+.lp-textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--lp-line-strong);
+  border-radius: 3px;
+  background: var(--lp-bg);
+  font-family: var(--lp-body);
+  font-size: 1rem;  /* 16px minimum — anything smaller zooms on iOS focus */
+  font-weight: 300;
+  color: var(--lp-ink);
+  transition: border-color 0.2s var(--lp-ease), box-shadow 0.2s var(--lp-ease);
+}
+
+.lp-textarea { min-height: 88px; resize: vertical; line-height: 1.6; }
+
+.lp-select {
+  appearance: none;
+  padding-right: 2.4rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B6259' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 15px;
+}
+
+.lp-input:focus,
+.lp-select:focus,
+.lp-textarea:focus {
+  border-color: var(--lp-forest);
+  box-shadow: 0 0 0 3px rgba(47, 84, 70, 0.12);
+  outline: none;
+}
+
+.lp-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin: 1.15rem 0 1.25rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--lp-muted);
+}
+
+.lp-consent input {
+  width: 18px;
+  height: 18px;
+  margin: 0.18rem 0 0;
+  flex: none;
+  accent-color: var(--lp-forest);
+}
+
+.lp-form-foot {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  text-align: center;
+  color: var(--lp-muted);
+}
+
+.lp-form-foot a { color: var(--lp-sage); text-decoration: underline; text-underline-offset: 2px; }
+
+/* Submission feedback. Hidden until the script or the server has
+   something to say; never animated in a way that steals focus. */
+.lp-form-msg {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.lp-form-msg:empty { display: none; }
+
+.lp-form-msg[data-state="ok"] {
+  border: 1px solid rgba(47, 84, 70, 0.3);
+  background: rgba(168, 196, 184, 0.18);
+  color: #234034;
+}
+
+.lp-form-msg[data-state="error"] {
+  border: 1px solid rgba(139, 71, 51, 0.32);
+  background: rgba(139, 71, 51, 0.07);
+  color: #7A3B27;
+}
+
+/* Honeypot — off-screen rather than display:none so bots still fill it. */
+.lp-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ── SECTIONS ─────────────────────────────────────────────────────── */
+.lp-section { padding: 4rem 0; }
+
+.lp-section--panel {
+  background: var(--lp-panel);
+  border-block: 1px solid var(--lp-line);
+}
+
+.lp-section-head { max-width: 46rem; margin-bottom: 2.5rem; }
+
+/* ── SEGMENTS ─────────────────────────────────────────────────────── */
+.lp-segments {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-segment {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem 1.5rem 1.6rem;
+  border: 1px solid var(--lp-line);
+  border-radius: 4px;
+  background: var(--lp-bg);
+  transition: border-color 0.3s var(--lp-ease), transform 0.3s var(--lp-ease),
+              box-shadow 0.3s var(--lp-ease);
+}
+
+.lp-segment:hover {
+  border-color: var(--lp-sage);
+  transform: translateY(-3px);
+  box-shadow: var(--lp-shadow);
+}
+
+.lp-segment-num {
+  font-family: var(--lp-display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--lp-bronze);
+}
+
+.lp-segment-title {
+  margin-top: 0.6rem;
+  font-family: var(--lp-display);
+  font-size: 1.55rem;
+  font-weight: 500;
+  line-height: 1.22;
+  color: var(--lp-ink);
+}
+
+.lp-segment-q {
+  margin-top: 0.9rem;
+  font-family: var(--lp-display);
+  font-size: 1.12rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--lp-sage);
+}
+
+.lp-segment-body {
+  margin-top: 0.9rem;
+  font-size: 0.94rem;
+  line-height: 1.75;
+  color: var(--lp-ink-soft);
+}
+
+.lp-segment-list {
+  margin: 1.1rem 0 0;
+  padding: 1.1rem 0 0;
+  border-top: 1px solid var(--lp-line);
+  list-style: none;
+  font-size: 0.86rem;
+  color: var(--lp-muted);
+}
+
+.lp-segment-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  margin-bottom: 0.4rem;
+}
+
+.lp-segment-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--lp-sage-light);
+}
+
+.lp-segment-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.15rem;
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0 1.05rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--lp-forest);
+  background: none;
+  border: 1px solid var(--lp-sage-light);
+  border-radius: 2rem;
+  cursor: pointer;
+  font-family: var(--lp-body);
+  transition: border-color 0.25s var(--lp-ease), color 0.25s var(--lp-ease),
+              background 0.25s var(--lp-ease);
+}
+
+.lp-segment-cta:hover {
+  color: var(--lp-forest-hover);
+  border-color: var(--lp-forest);
+  background: rgba(168, 196, 184, 0.16);
+}
+
+.lp-segment-cta span { transition: transform 0.25s var(--lp-ease); display: inline-block; }
+
+.lp-segment-cta:hover span { transform: translateX(3px); }
+
+/* ── KIT (dark) ───────────────────────────────────────────────────── */
+.lp-kit {
+  position: relative;
+  padding: 4.5rem 0;
+  background: var(--lp-ink);
+  color: var(--lp-panel);
+  overflow: hidden;
+}
+
+.lp-kit .lp-label { color: var(--lp-gold); }
+
+.lp-kit .lp-label::before { background: var(--lp-gold); }
+
+.lp-kit .lp-h2 { color: var(--lp-panel); }
+
+.lp-kit .lp-h2 em { color: var(--lp-sage-light); }
+
+.lp-kit .lp-lede { color: rgba(249, 246, 240, 0.76); }
+
+/* Oversized ghost letterform, clipped by the section. Drawn as generated
+   content so it never enters the DOM as readable text. */
+.lp-kit::after {
+  content: "KIT";
+  position: absolute;
+  right: -3rem;
+  bottom: -5rem;
+  font-family: var(--lp-display);
+  font-size: clamp(12rem, 30vw, 24rem);
+  font-weight: 300;
+  line-height: 0.8;
+  color: rgba(249, 246, 240, 0.035);
+  pointer-events: none;
+  user-select: none;
+}
+
+.lp-pillars {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  margin: 2.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(249, 246, 240, 0.14);
+}
+
+.lp-pillar {
+  padding: 1.75rem 0;
+  border-bottom: 1px solid rgba(249, 246, 240, 0.14);
+}
+
+.lp-pillar-letter {
+  font-family: var(--lp-display);
+  font-size: 2.6rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--lp-sage-light);
+}
+
+.lp-pillar-word {
+  margin-top: 0.5rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lp-gold);
+}
+
+.lp-pillar-body {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: rgba(249, 246, 240, 0.76);
+}
+
+/* ── STEPS ────────────────────────────────────────────────────────── */
+.lp-steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: lp-step;
+}
+
+.lp-step {
+  position: relative;
+  padding-left: 3.4rem;
+  counter-increment: lp-step;
+}
+
+.lp-step::before {
+  content: counter(lp-step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--lp-line);
+  border-radius: 50%;
+  background: var(--lp-bg);
+  font-family: var(--lp-display);
+  font-size: 0.95rem;
+  color: var(--lp-sage);
+}
+
+.lp-step-title {
+  font-family: var(--lp-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--lp-ink);
+}
+
+.lp-step-body {
+  margin-top: 0.45rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--lp-ink-soft);
+}
+
+/* ── PROOF ────────────────────────────────────────────────────────── */
+.lp-proof-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.lp-quotes { display: grid; gap: 1.1rem; }
+
+.lp-quote {
+  padding: 1.5rem 1.4rem;
+  border: 1px solid var(--lp-line);
+  border-left: 2px solid var(--lp-sage-light);
+  border-radius: 0 4px 4px 0;
+  background: var(--lp-bg);
+}
+
+.lp-quote blockquote {
+  font-family: var(--lp-display);
+  font-size: 1.16rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--lp-ink);
+}
+
+.lp-quote figcaption {
+  margin-top: 0.85rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
+}
+
+.lp-bio {
+  padding: 1.75rem 1.5rem;
+  border: 1px solid var(--lp-line);
+  border-radius: 4px;
+  background: var(--lp-panel);
+}
+
+.lp-bio-photo {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 18%;
+  border: 2px solid #FFF;
+  box-shadow: var(--lp-shadow);
+}
+
+.lp-bio-name {
+  margin-top: 1.1rem;
+  font-family: var(--lp-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--lp-ink);
+}
+
+.lp-bio-role {
+  margin-top: 0.2rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  color: var(--lp-muted);
+}
+
+.lp-bio-body {
+  margin-top: 1rem;
+  font-size: 0.93rem;
+  line-height: 1.75;
+  color: var(--lp-ink-soft);
+}
+
+.lp-creds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1.25rem 0 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--lp-line);
+  list-style: none;
+}
+
+.lp-creds li {
+  padding: 0.32rem 0.7rem;
+  border: 1px solid var(--lp-line);
+  border-radius: 2rem;
+  background: var(--lp-bg);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--lp-muted);
+}
+
+/* ── FAQ ──────────────────────────────────────────────────────────── */
+.lp-faq { max-width: 46rem; margin-top: 2rem; }
+
+.lp-faq-item { border-bottom: 1px solid var(--lp-line); }
+
+.lp-faq-q {
+  position: relative;
+  padding: 1.25rem 2.5rem 1.25rem 0;
+  font-family: var(--lp-display);
+  font-size: 1.24rem;
+  font-weight: 500;
+  color: var(--lp-ink);
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.2s var(--lp-ease);
+}
+
+.lp-faq-q::-webkit-details-marker { display: none; }
+
+.lp-faq-q:hover { color: var(--lp-sage); }
+
+.lp-faq-q::after {
+  content: "";
+  position: absolute;
+  right: 0.4rem;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  margin-top: -6px;
+  border-right: 1.5px solid var(--lp-sage);
+  border-bottom: 1.5px solid var(--lp-sage);
+  transform: rotate(45deg);
+  transition: transform 0.25s var(--lp-ease);
+}
+
+.lp-faq-item[open] .lp-faq-q::after { transform: rotate(-135deg); margin-top: -2px; }
+
+.lp-faq-a {
+  padding: 0 0 1.4rem;
+  font-size: 0.97rem;
+  line-height: 1.8;
+  color: var(--lp-ink-soft);
+}
+
+/* ── FINAL CTA ────────────────────────────────────────────────────── */
+.lp-final {
+  position: relative;
+  padding: 4.5rem 0;
+  background: var(--lp-panel-deep);
+  border-top: 1px solid var(--lp-line);
+  overflow: hidden;
+}
+
+.lp-final-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.lp-final .lp-h2 { text-wrap: balance; }
+
+.lp-final-alt {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--lp-line);
+  font-size: 0.93rem;
+  line-height: 1.8;
+  color: var(--lp-ink-soft);
+}
+
+.lp-final-alt a {
+  color: var(--lp-forest);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.lp-leaf {
+  position: absolute;
+  right: -60px;
+  bottom: -40px;
+  width: 200px;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────── */
+.lp-footer {
+  padding: 2.5rem 0 3rem;
+  background: var(--lp-ink);
+  color: rgba(249, 246, 240, 0.72);
+  font-size: 0.84rem;
+  line-height: 1.75;
+}
+
+.lp-footer a:not(.lp-footer-logo) {
+  color: var(--lp-sage-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.lp-footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(249, 246, 240, 0.14);
+}
+
+.lp-footer-logo {
+  font-family: var(--lp-display);
+  font-size: 1.1rem;
+  color: var(--lp-panel);
+  text-decoration: none;
+}
+
+.lp-footer-logo span { color: var(--lp-sage-light); }
+
+.lp-footer-contact { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; }
+
+.lp-disclaimer {
+  margin-top: 1.5rem;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: rgba(249, 246, 240, 0.62);
+}
+
+.lp-disclaimer strong { color: rgba(249, 246, 240, 0.86); font-weight: 500; }
+
+.lp-copy {
+  margin-top: 1.25rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+  color: rgba(249, 246, 240, 0.52);
+}
+
+/* ── STICKY MOBILE CTA ────────────────────────────────────────────
+   Phones scroll past the hero form long before the closing one. This
+   bar keeps a single tap to the form available the whole way down. It
+   is only rendered below the tablet breakpoint. */
+.lp-sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.65rem 0.85rem calc(0.65rem + env(safe-area-inset-bottom));
+  background: rgba(253, 250, 245, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid var(--lp-line);
+  transform: translateY(110%);
+  transition: transform 0.35s var(--lp-ease);
+}
+
+.lp-sticky[data-visible="true"] { transform: translateY(0); }
+
+.lp-sticky .lp-btn { min-height: 48px; padding: 0.75rem 1.1rem; font-size: 0.88rem; }
+
+.lp-sticky .lp-btn--primary { flex: 1 1 auto; }
+
+.lp-sticky .lp-btn--ghost { flex: 0 0 auto; width: 48px; min-width: 48px; padding: 0; border-radius: 50%; }
+
+/* ── REVEAL ───────────────────────────────────────────────────────
+   Visible by default, animated only once the script confirms it can
+   put them back. A stylesheet must never be able to hide content that
+   only JavaScript can restore. */
+.js-lp .lp-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s var(--lp-ease), transform 0.65s var(--lp-ease);
+}
+
+.js-lp .lp-reveal.is-visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────── */
+@media (min-width: 600px) {
+  :root { --lp-gutter: 2rem; }
+
+  .lp-header-tel .lp-tel-text { display: inline; }
+
+  .lp-form-card { padding: 2rem 1.85rem 1.75rem; }
+
+  .lp-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+
+  .lp-segments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .lp-segment:first-child { grid-column: span 2; }
+
+  .lp-quotes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .lp-quote:first-child { grid-column: span 2; }
+}
+
+@media (min-width: 900px) {
+  :root { --lp-gutter: 2.5rem; }
+
+  .lp-header { padding-inline: 2.5rem; }
+
+  .lp-section { padding: 5.5rem 0; }
+
+  .lp-hero { padding: 4.5rem 0 5rem; }
+
+  /* Copy left, form right — the form stays above the fold on desktop
+     rather than making the visitor scroll to find the ask. */
+  .lp-hero-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 3.5rem;
+  }
+
+  .lp-form-card { position: sticky; top: 2rem; }
+
+  .lp-segments { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .lp-segment:first-child { grid-column: auto; }
+
+  .lp-quotes { grid-template-columns: minmax(0, 1fr); }
+
+  .lp-quote:first-child { grid-column: auto; }
+
+  .lp-pillars {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 2.5rem;
+    border-top: 0;
+  }
+
+  .lp-pillar {
+    padding: 0 0 0 1.75rem;
+    border-bottom: 0;
+    border-left: 1px solid rgba(249, 246, 240, 0.16);
+  }
+
+  .lp-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+
+  .lp-proof-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 3rem; }
+
+  .lp-final-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr); gap: 4rem; }
+
+  .lp-leaf { width: 280px; right: -40px; }
+
+  .lp-sticky { display: none; }
+}
+
+@media (min-width: 1100px) {
+  .lp-h1 { font-size: 4.6rem; }
+}
+
+/* ── REDUCED MOTION ───────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .js-lp .lp-reveal { opacity: 1; transform: none; }
+
+  .lp-sticky { transition: none; }
+}
