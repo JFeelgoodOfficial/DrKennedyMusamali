@@ -1,4 +1,4 @@
-// scripts/landing.js — behavior for free-consultation.html
+// scripts/landing.js: behavior for free-consultation.html
 //
 // Everything here is progressive enhancement. With this file blocked or
 // broken the page still renders in full and the form still submits as a
@@ -8,6 +8,17 @@
 // Loaded with `defer`; the site's CSP allows no inline script.
 (function () {
   'use strict';
+
+  // Vercel Web Analytics queue stub. Must exist before /_vercel/insights
+  // runs; this file is loaded with `defer` ahead of the insights script,
+  // the same arrangement scripts/site.js uses.
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+
+  // Funnel events. These are what make a change in conversion rate
+  // measurable rather than asserted.
+  function track(name, data) {
+    try { window.va('event', { name: name, data: data || {} }); } catch (e) { /* never break the form */ }
+  }
 
   function onReady(fn) {
     if (document.readyState === 'loading') {
@@ -53,10 +64,19 @@
     // ── Segment cards feed the form ───────────────────────────────────
     // Choosing "Start here" pre-selects the matching option and moves the
     // visitor to the form with that context already filled in.
+    var FORM_TITLES = {
+      personal: 'Book a free consultation about the change in your life',
+      organization: 'Book a free consultation about the change in your organization',
+      training: 'Book a free consultation about training for your group',
+    };
+
     document.querySelectorAll('.lp-segment-cta').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var value = btn.getAttribute('data-segment');
         if (segmentField && value) segmentField.value = value;
+        var title = document.getElementById('form-title');
+        if (title && FORM_TITLES[value]) title.textContent = FORM_TITLES[value];
+        track('lead_segment_pick', { segment: value || 'unknown' });
         scrollToForm(value ? 'lead-name' : null);
       });
     });
@@ -109,6 +129,16 @@
     // ── Form submission ───────────────────────────────────────────────
     if (!form) return;
 
+    // Fires once, on the first field a visitor touches. Paired with
+    // lead_submitted this gives a start-to-finish completion rate, which
+    // is where form friction shows up.
+    var started = false;
+    form.addEventListener('focusin', function () {
+      if (started) return;
+      started = true;
+      track('lead_form_start');
+    });
+
     var MAILTO = 'mailto:services@kennedymusamali.com?subject=Free%20Consultation%20Request';
 
     function setMessage(state, html) {
@@ -158,16 +188,22 @@
         });
       }).then(function (result) {
         if (result.ok) {
+          track('lead_submitted', { segment: payload.segment || 'unknown' });
           form.hidden = true;
           setMessage('ok',
-            '<strong>Thank you — that came through.</strong><br>' +
-            'Dr. Musamali will reply personally, usually within one business day. ' +
+            '<strong>That came through. Here is what happens next.</strong>' +
+            '<ol class="lp-next">' +
+            '<li>Dr. Musamali replies personally, usually within one business day.</li>' +
+            '<li>You pick a time that suits you, evenings and weekends included.</li>' +
+            '<li>Twenty minutes on the phone or video, and you leave with a first step.</li>' +
+            '</ol>' +
             'If it is urgent, call <a href="tel:+14698448251">469-844-8251</a>.');
           if (msg) msg.focus && msg.focus();
           return;
         }
 
         var reason = (result.body && result.body.error) || '';
+        track('lead_failed', { status: result.status });
         if (result.status === 400 && reason) {
           setMessage('error', reason);
         } else {
@@ -175,17 +211,18 @@
           // way the visitor should not lose what they wrote.
           setMessage('error',
             'That did not send. Please email <a href="' + MAILTO + '">services@kennedymusamali.com</a> ' +
-            'or call <a href="tel:+14698448251">469-844-8251</a> — both reach Dr. Musamali directly.');
+            'or call <a href="tel:+14698448251">469-844-8251</a>. Both reach Dr. Musamali directly.');
         }
       }).catch(function () {
+        track('lead_failed', { status: 0 });
         setMessage('error',
-          'That did not send — you may be offline. Please email ' +
+          'That did not send. You may be offline. Please email ' +
           '<a href="' + MAILTO + '">services@kennedymusamali.com</a> or call ' +
           '<a href="tel:+14698448251">469-844-8251</a>.');
       }).then(function () {
         if (submit) {
           submit.disabled = false;
-          submit.textContent = 'Request my free consultation';
+          submit.textContent = 'Get my free 20-minute consultation';
         }
       });
     });

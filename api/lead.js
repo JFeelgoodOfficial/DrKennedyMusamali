@@ -1,13 +1,13 @@
-// api/lead.js — consultation requests from free-consultation.html
+// api/lead.js: consultation requests from free-consultation.html
 //
 // Accepts both shapes the landing page can send:
-//   * application/json          — the fetch() path, answered with JSON
-//   * form-urlencoded           — the plain <form> POST used when the page's
+//   * application/json          the fetch() path, answered with JSON
+//   * form-urlencoded           the plain <form> POST used when the page's
 //                                 JavaScript never runs, answered with HTML
 //
 // DELIVERY REQUIRES CONFIGURATION. Set one of these in the Vercel project
 // (Settings → Environment Variables), or submissions are refused with a 503
-// and the page tells the visitor to email instead — a lead is never silently
+// and the page tells the visitor to email instead, so a lead is never silently
 // swallowed:
 //
 //   LEAD_WEBHOOK_URL   Any endpoint that accepts a JSON POST (Zapier, Make,
@@ -107,27 +107,25 @@ function validate(body) {
   const phone = field(body, 'phone');
   const segment = field(body, 'segment');
   const message = field(body, 'message');
-  const consent = body.consent === 'yes' || body.consent === true || body.consent === 'on';
 
   if (!name) return { error: 'Please add your name so I know who I am replying to.' };
   // Deliberately permissive: the cost of rejecting a real address is far
   // higher than the cost of accepting one that bounces.
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-    return { error: 'That email address does not look right — please check it.' };
+    return { error: 'That email address does not look right. Please check it.' };
   }
   if (!SEGMENTS[segment]) return { error: 'Please choose which kind of change you are facing.' };
-  if (!consent) return { error: 'Please tick the box so I know it is OK to contact you.' };
 
   return { lead: { name, email, phone, segment, message } };
 }
 
 function formatLead(lead, meta) {
   return [
-    'New consultation request — kennedymusamali.com',
+    'New consultation request from kennedymusamali.com',
     '',
     `Name:     ${lead.name}`,
     `Email:    ${lead.email}`,
-    `Phone:    ${lead.phone || '—'}`,
+    `Phone:    ${lead.phone || '(none)'}`,
     `Segment:  ${SEGMENTS[lead.segment]}`,
     '',
     'Message:',
@@ -162,7 +160,7 @@ async function deliverEmail(apiKey, lead, text) {
       from,
       to: [to],
       reply_to: lead.email,
-      subject: `Consultation request — ${lead.name} (${SEGMENTS[lead.segment]})`,
+      subject: `Consultation request from ${lead.name} (${SEGMENTS[lead.segment]})`,
       text,
     }),
   });
@@ -178,7 +176,7 @@ function htmlReply(res, status, heading, body) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>${escapeHtml(heading)} — Dr. Kennedy Musamali</title>
+<title>${escapeHtml(heading)} | Dr. Kennedy Musamali</title>
 <link rel="stylesheet" href="/styles/landing.css">
 </head>
 <body class="page-lp">
@@ -253,7 +251,7 @@ module.exports = async function handler(req, res) {
   if (!webhookUrl && !resendKey) {
     // Refusing loudly is the only honest option: accepting the request and
     // dropping it would cost a real lead with no trace.
-    console.error('lead: no LEAD_WEBHOOK_URL or RESEND_API_KEY configured — refusing to accept a lead it cannot deliver');
+    console.error('lead: no LEAD_WEBHOOK_URL or RESEND_API_KEY configured, refusing to accept a lead it cannot deliver');
     fail(
       503,
       `Online booking is not connected yet. Please email <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> or call ${CONTACT_PHONE}.`,
@@ -268,7 +266,7 @@ module.exports = async function handler(req, res) {
     try {
       await deliverWebhook(webhookUrl, lead, meta, text);
       if (wantsJson) res.status(200).json({ ok: true });
-      else htmlReply(res, 200, 'Thank you — that came through',
+      else htmlReply(res, 200, 'That came through',
         `Dr. Musamali will reply personally, usually within one business day. If it is urgent, call ${CONTACT_PHONE}.`);
       return;
     } catch (err) {
@@ -280,7 +278,7 @@ module.exports = async function handler(req, res) {
     try {
       await deliverEmail(resendKey, lead, text);
       if (wantsJson) res.status(200).json({ ok: true });
-      else htmlReply(res, 200, 'Thank you — that came through',
+      else htmlReply(res, 200, 'That came through',
         `Dr. Musamali will reply personally, usually within one business day. If it is urgent, call ${CONTACT_PHONE}.`);
       return;
     } catch (err) {
@@ -290,7 +288,7 @@ module.exports = async function handler(req, res) {
 
   // Delivery failed. Log the whole lead so it is recoverable from the
   // function logs rather than lost.
-  console.error('lead: delivery failed —', errors.join('; '));
+  console.error('lead: delivery failed:', errors.join('; '));
   console.error('lead: unsent submission follows\n' + text);
   fail(
     502,

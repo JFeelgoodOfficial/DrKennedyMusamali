@@ -200,6 +200,17 @@ a { color: var(--lp-sage); }
 
 .lp-logo span { color: var(--lp-sage); }
 
+.lp-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Desktop only. Phones already carry the sticky bar, and two competing
+   CTAs on a small screen crowd each other. Scoped to .lp-header so it
+   outranks the .lp-btn display rule further down the file. */
+.lp-header .lp-header-cta { display: none; }
+
 .lp-header-tel {
   display: inline-flex;
   align-items: center;
@@ -257,6 +268,7 @@ a { color: var(--lp-sage); }
 
 .lp-btn--primary {
   width: 100%;
+  margin-top: 0.35rem;
   background: var(--lp-forest);
   color: #FFF;
   box-shadow: var(--lp-shadow);
@@ -302,13 +314,26 @@ a { color: var(--lp-sage); }
   pointer-events: none;
 }
 
+/* Named areas so the form card can be pulled above the secondary hero copy
+   on phones. On a small screen the form used to sit roughly five screens
+   down; here it lands directly under the headline. */
 .lp-hero-grid {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 2.75rem;
+  grid-template-areas:
+    "copy"
+    "form"
+    "more";
+  gap: 2.25rem;
   align-items: start;
 }
+
+.lp-hero-copy { grid-area: copy; }
+.lp-hero-more { grid-area: more; }
+.lp-form-card { grid-area: form; }
+
+.lp-hero-more .lp-hero-sub { margin-top: 0; }
 
 .lp-eyebrow {
   display: inline-flex;
@@ -403,6 +428,30 @@ a { color: var(--lp-sage); }
 
 .lp-form-head { margin-bottom: 1.35rem; }
 
+/* A face and a response-time promise sitting directly above the fields.
+   Both are answers to the question people actually have at this moment:
+   who receives this, and when do I hear back. */
+.lp-form-who {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--lp-line);
+}
+
+.lp-form-avatar {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 18%;
+  border: 1px solid var(--lp-line);
+}
+
+.lp-form-who .lp-form-note { margin-top: 0; }
+
 .lp-form-title {
   font-family: var(--lp-display);
   font-size: 1.65rem;
@@ -472,22 +521,14 @@ a { color: var(--lp-sage); }
   outline: none;
 }
 
-.lp-consent {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
-  margin: 1.15rem 0 1.25rem;
-  font-size: 0.82rem;
+/* Consent as a statement under the button rather than a required tick box.
+   One less thing standing between a filled-in form and a sent one. */
+.lp-consent-note {
+  margin-top: 0.8rem;
+  font-size: 0.78rem;
   line-height: 1.6;
+  text-align: center;
   color: var(--lp-muted);
-}
-
-.lp-consent input {
-  width: 18px;
-  height: 18px;
-  margin: 0.18rem 0 0;
-  flex: none;
-  accent-color: var(--lp-forest);
 }
 
 .lp-form-foot {
@@ -517,6 +558,17 @@ a { color: var(--lp-sage); }
   background: rgba(168, 196, 184, 0.18);
   color: #234034;
 }
+
+/* Next-steps list inside the success message. Telling someone what happens
+   now is worth more than thanking them. */
+.lp-next {
+  margin: 0.7rem 0 0.7rem;
+  padding-left: 1.1rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.lp-next li { margin-bottom: 0.3rem; }
 
 .lp-form-msg[data-state="error"] {
   border: 1px solid rgba(139, 71, 51, 0.32);
@@ -784,6 +836,27 @@ a { color: var(--lp-sage); }
   font-size: 0.95rem;
   line-height: 1.75;
   color: var(--lp-ink-soft);
+}
+
+/* ── MID-PAGE CTA ─────────────────────────────────────────────────
+   The stretch between the hero form and the closing CTA was the longest
+   run of page with nothing to act on. */
+.lp-midcta {
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--lp-line);
+  text-align: center;
+}
+
+.lp-midcta .lp-btn--primary {
+  width: auto;
+  margin-top: 0;
+}
+
+.lp-midcta-note {
+  margin-top: 0.85rem;
+  font-size: 0.85rem;
+  color: var(--lp-muted);
 }
 
 /* ── PROOF ────────────────────────────────────────────────────────── */
@@ -1065,7 +1138,21 @@ a { color: var(--lp-sage); }
 @media (min-width: 600px) {
   :root { --lp-gutter: 2rem; }
 
-  .lp-header-tel .lp-tel-text { display: inline; }
+  .lp-header-tel .lp-tel-text {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip-path: none;
+  }
+
+  .lp-header .lp-header-cta {
+    display: inline-flex;
+    min-height: 40px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.84rem;
+  }
 
   .lp-form-card { padding: 2rem 1.85rem 1.75rem; }
 
@@ -1089,11 +1176,16 @@ a { color: var(--lp-sage); }
 
   .lp-hero { padding: 4.5rem 0 5rem; }
 
-  /* Copy left, form right — the form stays above the fold on desktop
-     rather than making the visitor scroll to find the ask. */
+  /* Copy left, form right. The form sits above the fold on desktop rather
+     than making the visitor scroll to find the ask. The secondary copy
+     slots back under the headline in the same column. */
   .lp-hero-grid {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: 3.5rem;
+    grid-template-areas:
+      "copy form"
+      "more form";
+    align-content: start;
+    gap: 1.75rem 3.5rem;
   }
 
   .lp-form-card { position: sticky; top: 2rem; }
